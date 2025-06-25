@@ -1,0 +1,171 @@
+/* Custom Bulma Theme CSS Variables */
+:root {
+  /* Main colors */
+  --primary: #3273dc;
+  --primary-light: #ebf2ff;
+  --primary-dark: #1a56b1;
+  --info: #209cee;
+  --success: #23d160;
+  --warning: #ffdd57;
+  --danger: #ff3860;
+  --light: #f5f5f5;
+  --dark: #363636;
+  
+  /* Grays */
+  --white: #ffffff;
+  --white-bis: #fafafa;
+  --white-ter: #f5f5f5;
+  --gray-lighter: #dbdbdb;
+  --gray-light: #b5b5b5;
+  --gray: #7a7a7a;
+  --gray-dark: #4a4a4a;
+  --gray-darker: #363636;
+  --black-ter: #2b2b2b;
+  --black-bis: #1f1f1f;
+  --black: #0a0a0a;
+  
+  /* Text colors */
+  --text: var(--gray-dark);
+  --text-light: var(--gray);
+  --text-strong: var(--gray-darker);
+  
+  /* Background colors */
+  --background: var(--white);
+  --background-light: var(--white-bis);
+  
+  /* Border colors */
+  --border: var(--gray-lighter);
+  --border-hover: var(--gray-light);
+  
+  /* Link colors */
+  --link: var(--primary);
+  --link-hover: var(--primary-dark);
+  --link-visited: var(--primary-dark);
+  
+  /* Box shadow */
+  --shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+/* Override Bulma classes with CSS variables */
+
+/* Text colors */
+.has-text-primary { color: var(--primary) !important; }
+.has-text-info { color: var(--info) !important; }
+.has-text-success { color: var(--success) !important; }
+.has-text-warning { color: var(--warning) !important; }
+.has-text-danger { color: var(--danger) !important; }
+
+/* Background colors */
+.has-background-primary, .is-primary { background-color: var(--primary) !important; }
+.has-background-info, .is-info { background-color: var(--info) !important; }
+.has-background-success, .is-success { background-color: var(--success) !important; }
+.has-background-warning, .is-warning { background-color: var(--warning) !important; }
+.has-background-danger, .is-danger { background-color: var(--danger) !important; }
+.has-background-light, .is-light { background-color: var(--light) !important; }
+.has-background-dark, .is-dark { background-color: var(--dark) !important; }
+.has-background-white, .is-white { background-color: var(--white) !important; }
+
+/* Background light variants */
+.has-background-primary-light { background-color: var(--primary-light) !important; }
+
+/* Buttons */
+.button.is-primary {
+  background-color: var(--primary);
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-primary:hover, .button.is-primary:focus {
+  background-color: var(--primary-dark);
+  border-color: transparent;
+}
+.button.is-primary:active {
+  border-color: transparent;
+}
+.button.is-primary.is-outlined {
+  background-color: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.button.is-primary.is-outlined:hover, .button.is-primary.is-outlined:focus {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Similar styles for other button colors (info, success, warning, danger) */
+/* For brevity, only primary buttons are fully styled here */
+
+/* Navbar */
+.navbar.is-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.navbar.is-primary .navbar-brand > .navbar-item,
+.navbar.is-primary .navbar-brand .navbar-link {
+  color: #fff;
+}
+.navbar.is-primary .navbar-brand > a.navbar-item:hover,
+.navbar.is-primary .navbar-brand > a.navbar-item.is-active,
+.navbar.is-primary .navbar-brand .navbar-link:hover,
+.navbar.is-primary .navbar-brand .navbar-link.is-active {
+  background-color: var(--primary-dark);
+  color: #fff;
+}
+.navbar.is-primary .navbar-item,
+.navbar.is-primary .navbar-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+.navbar.is-primary a.navbar-item:hover,
+.navbar.is-primary a.navbar-item.is-active,
+.navbar.is-primary .navbar-link:hover,
+.navbar.is-primary .navbar-link.is-active {
+  background-color: var(--primary-dark);
+  color: #fff;
+}
+.navbar.is-primary .navbar-dropdown a.navbar-item.is-active {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* Tags */
+.tag.is-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.tag.is-info {
+  background-color: var(--info);
+  color: #fff;
+}
+.tag.is-success {
+  background-color: var(--success);
+  color: #fff;
+}
+.tag.is-warning {
+  background-color: var(--warning);
+  color: rgba(0, 0, 0, 0.7);
+}
+.tag.is-danger {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+/* Hero */
+.hero.is-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.hero.is-primary .title,
+.hero.is-primary .subtitle {
+  color: #fff;
+}
+
+/* Similar styles for other hero colors (info, success, warning, danger) */
+/* For brevity, only primary hero is fully styled here */
+
+/* Links */
+a {
+  color: var(--link);
+}
+a:hover {
+  color: var(--link-hover);
+}
