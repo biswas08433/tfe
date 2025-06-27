@@ -27,11 +27,6 @@
   $: if (category && treksList.length > 0) {
     filteredTreks = treksList.filter(trek => trek.category === category);
   }
-      duration: "7-10 days",
-      altitude: "1,200m (John Gardner Pass)",
-      location: "Chile"
-    }
-  ];
   
   // Get the category from URL parameter
   $: category = $page.params.category;
