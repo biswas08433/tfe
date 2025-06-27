@@ -6,95 +6,103 @@
     {
       id: 1,
       title: "Everest Base Camp",
-      category: "advanced",
+      category: "autumn",
       image: "https://images.unsplash.com/photo-1575320181282-9afab399332c?auto=format&fit=crop&q=80&w=400&h=300",
       description: "A classic Himalayan trek to the foot of the world's highest mountain.",
       difficulty: "Advanced",
       duration: "14 days",
       altitude: "5,364m",
-      location: "Nepal"
+      location: "Nepal",
+      bestSeason: "Autumn"
     },
     {
       id: 2,
       title: "Annapurna Circuit",
-      category: "moderate",
+      category: "spring",
       image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=400&h=300",
       description: "One of the most diverse treks offering stunning mountain views and cultural experiences.",
       difficulty: "Moderate",
       duration: "12-20 days",
       altitude: "5,416m (Thorong La Pass)",
-      location: "Nepal"
+      location: "Nepal",
+      bestSeason: "Spring"
     },
     {
       id: 3,
       title: "Poon Hill Trek",
-      category: "beginners",
+      category: "spring",
       image: "https://images.unsplash.com/photo-1572353656294-dd1499ce4dd3?auto=format&fit=crop&q=80&w=400&h=300",
       description: "A short trek with spectacular sunrise views of the Annapurna and Dhaulagiri ranges.",
       difficulty: "Beginner",
       duration: "4-5 days",
       altitude: "3,210m",
-      location: "Nepal"
+      location: "Nepal",
+      bestSeason: "Spring"
     },
     {
       id: 4,
       title: "Inca Trail to Machu Picchu",
-      category: "moderate",
+      category: "winter",
       image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&q=80&w=400&h=300",
       description: "Follow in the footsteps of the Incas on this historic trail to the lost city of Machu Picchu.",
       difficulty: "Moderate",
       duration: "4 days",
       altitude: "4,215m (Dead Woman's Pass)",
-      location: "Peru"
+      location: "Peru",
+      bestSeason: "Winter"
     },
     {
       id: 5,
       title: "Tour du Mont Blanc",
-      category: "moderate",
+      category: "summer",
       image: "https://images.unsplash.com/photo-1596097000511-d538d4782c29?auto=format&fit=crop&q=80&w=400&h=300",
       description: "A classic European trek circling Mont Blanc through France, Italy, and Switzerland.",
       difficulty: "Moderate",
       duration: "7-11 days",
       altitude: "2,665m (Fenêtre d'Arpette)",
-      location: "France, Italy, Switzerland"
+      location: "France, Italy, Switzerland",
+      bestSeason: "Summer"
     },
     {
       id: 6,
       title: "Kilimanjaro Summit",
-      category: "advanced",
+      category: "winter",
       image: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?auto=format&fit=crop&q=80&w=400&h=300",
       description: "Climb to the roof of Africa on this challenging high-altitude trek.",
       difficulty: "Advanced",
       duration: "5-9 days",
       altitude: "5,895m",
-      location: "Tanzania"
+      location: "Tanzania",
+      bestSeason: "Winter"
     },
     {
       id: 7,
       title: "Milford Track",
-      category: "beginners",
+      category: "summer",
       image: "https://images.unsplash.com/photo-1578787489973-fb52d104e112?auto=format&fit=crop&q=80&w=400&h=300",
       description: "Known as the 'finest walk in the world' through New Zealand's stunning fjordlands.",
       difficulty: "Beginner",
       duration: "4 days",
       altitude: "1,154m (Mackinnon Pass)",
-      location: "New Zealand"
+      location: "New Zealand",
+      bestSeason: "Summer"
     },
     {
       id: 8,
       title: "West Highland Way",
-      category: "beginners",
+      category: "summer",
       image: "https://images.unsplash.com/photo-1564938455650-354cbe6748b7?auto=format&fit=crop&q=80&w=400&h=300",
       description: "Scotland's premier long distance route through the stunning Highlands.",
       difficulty: "Beginner",
       duration: "5-8 days",
       altitude: "548m (Devil's Staircase)",
-      location: "Scotland"
+      location: "Scotland",
+      bestSeason: "Summer"
     },
     {
       id: 9,
       title: "Torres del Paine Circuit",
-      category: "advanced",
+      category: "autumn",
       image: "https://images.unsplash.com/photo-1518475766613-1ef7ad648d9f?auto=format&fit=crop&q=80&w=400&h=300",
       description: "Experience the stunning landscapes of Patagonia on this challenging trek.",
       difficulty: "Advanced",
@@ -105,29 +113,29 @@
   ];
   
   // Get the category from URL parameter
-  $: category = $page.params.category;
+  $: category = $page.params.season;
   
   // Define the category details for header display
   const categoryDetails = {
-    beginners: {
-      title: "Beginner Treks",
-      description: "Perfect for first-time trekkers and families. These treks feature lower altitude, shorter duration, and less challenging terrain. Ideal for those new to hiking or looking for a more relaxed experience.",
+    spring: {
+      title: "Spring Treks",
+      description: "Spring treks offer blooming wildflowers, mild temperatures, and vibrant landscapes. It's an excellent time for many Himalayan treks before the monsoon arrives. Rhododendron forests are particularly spectacular during this season.",
       color: "is-success"
     },
-    moderate: {
-      title: "Moderate Treks",
-      description: "For trekkers with some hiking experience. These routes have medium altitude, longer duration, and more varied terrain. A good balance of challenge and accessibility.",
+    summer: {
+      title: "Summer Treks",
+      description: "Summer is perfect for trekking in higher latitudes and altitudes. European Alps, Scotland, and New Zealand's South Island offer ideal summer trekking conditions with long daylight hours and accessible mountain passes.",
       color: "is-info"
     },
-    advanced: {
-      title: "Advanced Treks",
-      description: "Challenging routes for experienced trekkers. These expeditions feature high altitude, technical terrain, and demanding conditions. Requires previous trekking experience and excellent physical fitness.",
-      color: "is-danger"
-    },
-    family: {
-      title: "Family-friendly Treks",
-      description: "Specially designed treks suitable for families with children. These routes offer easier terrain, plenty of rest stops, and interesting sights to keep young adventurers engaged.",
+    autumn: {
+      title: "Autumn Treks",
+      description: "Autumn brings clear skies, stable weather, and spectacular visibility in many mountainous regions. It's the prime season for Himalayan treks, with comfortable temperatures and breathtaking fall colors in many regions.",
       color: "is-warning"
+    },
+    winter: {
+      title: "Winter Treks",
+      description: "Winter treks offer unique snow-covered landscapes and fewer crowds. It's an excellent time for lower-altitude treks in warmer regions or Southern Hemisphere adventures, as well as specialized snow treks for experienced hikers.",
+      color: "is-link"
     }
   };
   
@@ -164,8 +172,9 @@
             <div class="card-content">
               <p class="title is-4">{trek.title}</p>
               <p class="subtitle is-6">
-                <span class="tag {categoryInfo.color}">{trek.difficulty}</span>
+                <span class="tag {categoryInfo.color}">{trek.bestSeason}</span>
                 <span class="tag is-info ml-2">{trek.duration}</span>
+                <span class="tag is-light ml-2">{trek.difficulty}</span>
               </p>
               
               <div class="content">

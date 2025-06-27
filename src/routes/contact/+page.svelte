@@ -11,27 +11,66 @@
   let formSubmitted = false;
   let formError = false;
   
-  function handleSubmit() {
+  let submitting = false;
+  let errorMessage = '';
+  
+  async function handleSubmit() {
     // Validate form
     if (!formData.name || !formData.email || !formData.message) {
       formError = true;
+      errorMessage = 'Please fill out all required fields.';
       return;
     }
     
-    // In a real app, you would send this data to a server
-    console.log('Form submitted', formData);
-    formSubmitted = true;
+    submitting = true;
     formError = false;
     
-    // Reset form
-    formData = {
-      name: '',
-      email: '',
-      phone: '',
-      trekInterest: '',
-      message: '',
-      subscribe: false
-    };
+    try {
+      // Send data to the API endpoint
+      const response = await fetch('/api/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      // Check if the response is successful
+      if (response.ok) {
+        const result = await response.json();
+        
+        if (result.result === 'success') {
+          // Form submitted successfully
+          console.log('Form submitted successfully', formData);
+          formSubmitted = true;
+          
+          // Reset form
+          formData = {
+            name: '',
+            email: '',
+            phone: '',
+            trekInterest: '',
+            message: '',
+            subscribe: false
+          };
+        } else {
+          // Server returned an error
+          formError = true;
+          errorMessage = result.message || 'There was a problem submitting your form. Please try again.';
+          console.error('Server error:', result);
+        }
+      } else {
+        // HTTP error
+        formError = true;
+        errorMessage = 'Server error: ' + response.status;
+        console.error('HTTP error:', response.status);
+      }
+    } catch (error) {
+      // Network or other error
+      formError = true;
+      errorMessage = 'Connection error. Please check your internet connection and try again.';
+      console.error('Error submitting form:', error);
+    } finally {
+      submitting = false;
+    }
   }
 </script>
 
@@ -67,7 +106,7 @@
           {#if formError}
             <div class="notification is-danger">
               <button class="delete" aria-label="Close notification" on:click={() => formError = false}></button>
-              Please fill out all required fields.
+              {errorMessage || 'Please fill out all required fields.'}
             </div>
           {/if}
           
@@ -129,7 +168,16 @@
             
             <div class="field">
               <div class="control">
-                <button class="button is-primary is-medium is-fullwidth">Submit</button>
+                <button class="button is-primary is-medium is-fullwidth" disabled={submitting}>
+                  {#if submitting}
+                    <span class="icon is-small">
+                      <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                    <span>Submitting...</span>
+                  {:else}
+                    Submit
+                  {/if}
+                </button>
               </div>
             </div>
           </form>

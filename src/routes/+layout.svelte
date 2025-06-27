@@ -32,32 +32,35 @@
 
   <div id="navbarBasic" class="navbar-menu" class:is-active={navbarActive}>
     <div class="navbar-start">
-      <a class="navbar-item" href="/">
-        Home
-      </a>
-
       <a class="navbar-item" href="/treks">
         Treks
       </a>
+      
+      <a class="navbar-item" href="/experiences">
+        Experiences
+      </a>
+      
+      <a class="navbar-item" href="/team">
+        Our Team
+      </a>
 
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" href="/categories">
-          Categories
+        <a class="navbar-link" href="/treks/seasons">
+          Trek Seasons
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="/treks/beginners">
-            Beginner Treks
+          <a class="navbar-item" href="/treks/seasons/spring">
+            Spring Treks
           </a>
-          <a class="navbar-item" href="/treks/moderate">
-            Moderate Treks
+          <a class="navbar-item" href="/treks/seasons/summer">
+            Summer Treks
           </a>
-          <a class="navbar-item" href="/treks/advanced">
-            Advanced Treks
+          <a class="navbar-item" href="/treks/seasons/autumn">
+            Autumn Treks
           </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" href="/treks/family">
-            Family-friendly Treks
+          <a class="navbar-item" href="/treks/seasons/winter">
+            Winter Treks
           </a>
         </div>
       </div>
