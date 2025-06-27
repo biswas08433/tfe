@@ -26,11 +26,7 @@
   // Update filtered treks when category changes
   $: if (category && treksList.length > 0) {
     filteredTreks = treksList.filter(trek => trek.category === category);
-  }
-  
-  // Get the category from URL parameter
-  $: category = $page.params.category;
-  
+  }  
   // Define the category details for header display
   const categoryDetails = {
     spring: {
