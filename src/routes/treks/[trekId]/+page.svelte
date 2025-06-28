@@ -44,8 +44,8 @@
       <h1 class="title is-1 has-text-white">{trek.title}</h1>
       <h2 class="subtitle is-3">
         <span class="tag is-primary is-medium mr-2">Best Season: {trek.bestSeason}</span>
-        <span class="tag is-light is-medium mr-2">{trek.difficulty}</span>
-        <span class="tag is-white is-medium">{trek.duration}</span>
+        <span class="tag is-white is-medium mr-2">{trek.duration}</span>
+        <span class="tag is-success is-medium">{trek.distance}</span>
       </h2>
     </div>
   </div>
@@ -102,12 +102,6 @@
                           <span class="tag is-light is-medium mr-2 mb-2">
                             <span class="icon"><i class="fas fa-mountain"></i></span>
                             <span>{day.elevation}</span>
-                          </span>
-                        {/if}
-                        {#if day.difficulty}
-                          <span class="tag is-warning is-medium mr-2 mb-2">
-                            <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
-                            <span>{day.difficulty}</span>
                           </span>
                         {/if}
                       </div>
@@ -182,12 +176,12 @@
             <table class="table is-fullwidth">
               <tbody>
                 <tr>
-                  <td><strong>Difficulty</strong></td>
-                  <td>{trek.difficulty}</td>
-                </tr>
-                <tr>
                   <td><strong>Duration</strong></td>
                   <td>{trek.duration}</td>
+                </tr>
+                <tr>
+                  <td><strong>Distance</strong></td>
+                  <td>{trek.distance}</td>
                 </tr>
                 <tr>
                   <td><strong>Maximum Altitude</strong></td>
@@ -228,7 +222,7 @@
                   </div>
                   <div class="media-content">
                     <p class="title is-6">{relatedTrek.title}</p>
-                    <p class="subtitle is-7">{relatedTrek.duration} | {relatedTrek.difficulty}</p>
+                    <p class="subtitle is-7">{relatedTrek.duration} | {relatedTrek.distance}</p>
                     <a href={`/treks/${relatedTrek.id}`} class="is-size-7">View Trek</a>
                   </div>
                 </div>

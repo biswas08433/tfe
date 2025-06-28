@@ -157,14 +157,14 @@
               </div>
             </div>
             
-            <div class="field">
+            <!-- <div class="field">
               <div class="control">
                 <label class="checkbox">
                   <input type="checkbox" bind:checked={formData.subscribe}>
                   Subscribe to our newsletter
                 </label>
               </div>
-            </div>
+            </div> -->
             
             <div class="field">
               <div class="control">

@@ -14,6 +14,7 @@ export const treks = writable([
     location: "Nepal",
     season: "March-May, September-November",
     bestSeason: "Autumn",
+    distance: "130 km", // Added total distance field
     longDescription: "The Everest Base Camp trek is one of the most popular trekking routes in Nepal and the world. This incredible journey takes you through the heart of the Khumbu region to the base of Mount Everest, the world's highest peak. Along the way, you'll experience breathtaking mountain scenery, unique Sherpa culture, and visit ancient monasteries. The trek is challenging due to the high altitude and sometimes harsh weather conditions, but the spectacular views and sense of achievement make it all worthwhile.",
     highlights: [
       "Standing at Everest Base Camp (5,364m)",
@@ -239,6 +240,7 @@ export const treks = writable([
     location: "Nepal",
     season: "March-May, September-November",
     bestSeason: "Spring",
+    distance: "160 km", // Added total distance field
     longDescription: "The Annapurna Circuit is one of the world's classic treks, offering incredible diversity in terms of climate, culture, and landscapes. Starting in lush subtropical forests and climbing to the high-altitude desert of the Thorong La Pass, this trek circles the magnificent Annapurna massif. You'll pass through traditional Hindu villages in the lower regions and Tibetan Buddhist communities in the higher areas, providing a rich cultural experience alongside the natural beauty.",
     highlights: [
       "Crossing the challenging Thorong La Pass (5,416m)",
@@ -517,6 +519,7 @@ export const treks = writable([
     location: "Nepal",
     season: "March-May, September-November",
     bestSeason: "Spring",
+    distance: "35 km", // Added total distance field
     upcoming: false,
     featured: true
   },
@@ -532,6 +535,7 @@ export const treks = writable([
     location: "Peru",
     season: "May-September (dry season)",
     bestSeason: "Winter",
+    distance: "42 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -547,6 +551,7 @@ export const treks = writable([
     location: "France, Italy, Switzerland",
     season: "June-September",
     bestSeason: "Summer",
+    distance: "170 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -562,6 +567,8 @@ export const treks = writable([
     location: "Tanzania",
     season: "January-March, June-October",
     bestSeason: "Winter",
+    distance: "62 km",
+    distance: "70 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -577,6 +584,8 @@ export const treks = writable([
     location: "New Zealand",
     season: "October-April",
     bestSeason: "Summer",
+    distance: "53 km",
+    distance: "53 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -592,6 +601,8 @@ export const treks = writable([
     location: "Scotland",
     season: "May-September",
     bestSeason: "Summer",
+    distance: "154 km",
+    distance: "152 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -607,6 +618,8 @@ export const treks = writable([
     location: "Chile",
     season: "November-March",
     bestSeason: "Autumn",
+    distance: "110 km",
+    distance: "130 km", // Added total distance field
     upcoming: false,
     featured: false
   },
@@ -622,6 +635,8 @@ export const treks = writable([
     location: "India (Himachal Pradesh)",
     season: "June-September",
     bestSeason: "Summer",
+    distance: "64 km",
+    distance: "75 km", // Added total distance field
     longDescription: "The Hampta Pass trek is a mesmerizing journey that takes you from the verdant Kullu Valley to the stark landscapes of Lahaul. This dramatic change in terrain over a short distance is what makes this trek unique. As you cross the pass, you'll witness spectacular views of the Dhauladhar ranges and Pir Panjal mountains. The highlight of this trek is the beautiful crescent-shaped Chandratal Lake (Moon Lake) with its crystal clear blue waters. This special 9-day package includes comfortable train travel from Howrah to Delhi (Howrah-Kalka Mail) and return by premium Rajdhani Express, making it convenient for trekkers from Eastern India.",
     highlights: [
       "Dramatic change in landscapes from lush green to desert terrain",
@@ -771,7 +786,7 @@ export const treks = writable([
       { 
         day: 9, 
         title: "Delhi to Howrah by Train", 
-        description: "Arrive in Delhi in the morning and board the Rajdhani Express back to Howrah, concluding your Himalayan adventure.",
+        description: "Return to Howrah by train",
         duration: "17 hours train journey",
         distance: "1,450 km",
         elevation: "0m",
@@ -790,6 +805,7 @@ export const treks = writable([
     featured: false
   }
 ]);
+
 
 // Season categories
 export const seasons = writable([

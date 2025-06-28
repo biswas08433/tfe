@@ -41,6 +41,18 @@ export const experiences = writable([
         src: "/images/experiences/madri_himal/1.jpeg",
         caption: "First glimpse of Madri Himal"
       },
+      {
+        src: "/images/experiences/madri_himal/2.jpeg",
+        caption: "First glimpse of Madri Himal"
+      },
+      {
+        src: "/images/experiences/madri_himal/3.jpeg",
+        caption: "First glimpse of Madri Himal"
+      },
+      {
+        src: "/images/experiences/madri_himal/4.jpeg",
+        caption: "First glimpse of Madri Himal"
+      },
     ],
     testimonial: {
       quote: "The Madri Himal trek was a test of endurance and spirit. The guides were exceptional, ensuring our safety while allowing us to fully immerse in the experience.",

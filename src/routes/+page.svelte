@@ -74,7 +74,7 @@
                 <p class="subtitle is-6">
                   <span class="tag is-warning">{trek.bestSeason}</span>
                   <span class="tag is-info ml-2">{trek.duration}</span>
-                  <span class="tag is-light ml-2">{trek.difficulty}</span>
+                  <span class="tag is-success ml-2">{trek.distance}</span>
                 </p>
                 <div class="content">
                   {trek.description}
@@ -114,7 +114,7 @@
               <p class="subtitle is-6">
                 <span class="tag is-primary">{trek.bestSeason}</span>
                 <span class="tag is-info ml-2">{trek.duration}</span>
-                <span class="tag is-light ml-2">{trek.difficulty}</span>
+                <span class="tag is-success ml-2">{trek.distance}</span>
               </p>
               <div class="content">
                 {trek.description}

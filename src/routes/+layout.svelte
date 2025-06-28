@@ -44,26 +44,6 @@
         Our Team
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" href="/treks/seasons">
-          Trek Seasons
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="/treks/seasons/spring">
-            Spring Treks
-          </a>
-          <a class="navbar-item" href="/treks/seasons/summer">
-            Summer Treks
-          </a>
-          <a class="navbar-item" href="/treks/seasons/autumn">
-            Autumn Treks
-          </a>
-          <a class="navbar-item" href="/treks/seasons/winter">
-            Winter Treks
-          </a>
-        </div>
-      </div>
     </div>
 
     <div class="navbar-end">

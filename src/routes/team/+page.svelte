@@ -98,8 +98,8 @@
         <a href="/contact" class="button is-primary is-medium">Get In Touch</a>
       </div>
       <div class="column is-5">
-        <figure class="image">
-          <img src="/images/team/join-team.jpg" alt="Join our team of adventure guides" class="is-rounded">
+        <figure class="image" style="">
+          <img src="/images/team/team.jpeg" alt="Join our team of adventure guides" class="is-rounded">
         </figure>
       </div>
     </div>
