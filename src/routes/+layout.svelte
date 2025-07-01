@@ -67,7 +67,9 @@
 <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>The Flyin' Eagle</strong>. Copyright &copy; 2023. All rights reserved.
+      <strong>The Flying Eagle</strong>. Copyright &copy; 2023. All rights reserved.
     </p>
   </div>
 </footer>
+
+

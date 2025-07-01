@@ -6,7 +6,7 @@ export const treks = writable([
     id: 1,
     title: "Everest Base Camp",
     category: "autumn",
-    image: "https://images.unsplash.com/photo-1575320181282-9afab399332c?auto=format&fit=crop&q=80&w=400&h=300",
+    image: "https://images.ctfassets.net/83pwon8meh4m/eTxVO309vlKJYVlmQKMUf/eb3a617a3713fd9cd3cd4fb4ec05eb97/Ours_Everest_Base_Camp_EBC_Nepal_Trekkers_Flags_Fun.jpg",
     description: "A classic Himalayan trek to the foot of the world's highest mountain.",
     difficulty: "Advanced",
     duration: "14 days",
@@ -15,6 +15,12 @@ export const treks = writable([
     season: "March-May, September-November",
     bestSeason: "Autumn",
     distance: "130 km", // Added total distance field
+    // Key details
+    dates: ["September 10, 2025", "October 15, 2025", "November 5, 2025"],
+    budget: "$2,500 per person",
+    advancePayment: "$500 (20%)",
+    groupSize: "6-12 persons",
+    showKeyDetails: false,
     longDescription: "The Everest Base Camp trek is one of the most popular trekking routes in Nepal and the world. This incredible journey takes you through the heart of the Khumbu region to the base of Mount Everest, the world's highest peak. Along the way, you'll experience breathtaking mountain scenery, unique Sherpa culture, and visit ancient monasteries. The trek is challenging due to the high altitude and sometimes harsh weather conditions, but the spectacular views and sense of achievement make it all worthwhile.",
     highlights: [
       "Standing at Everest Base Camp (5,364m)",
@@ -241,6 +247,12 @@ export const treks = writable([
     season: "March-May, September-November",
     bestSeason: "Spring",
     distance: "160 km", // Added total distance field
+    // Key details
+    dates: ["March 25, 2025", "April 12, 2025", "May 5, 2025"],
+    budget: "$1,800 per person",
+    advancePayment: "$400 (22%)",
+    groupSize: "4-10 persons",
+    showKeyDetails: false,
     longDescription: "The Annapurna Circuit is one of the world's classic treks, offering incredible diversity in terms of climate, culture, and landscapes. Starting in lush subtropical forests and climbing to the high-altitude desert of the Thorong La Pass, this trek circles the magnificent Annapurna massif. You'll pass through traditional Hindu villages in the lower regions and Tibetan Buddhist communities in the higher areas, providing a rich cultural experience alongside the natural beauty.",
     highlights: [
       "Crossing the challenging Thorong La Pass (5,416m)",
@@ -520,6 +532,12 @@ export const treks = writable([
     season: "March-May, September-November",
     bestSeason: "Spring",
     distance: "35 km", // Added total distance field
+    // Key details
+    dates: ["March 15, 2025", "April 5, 2025", "October 20, 2025"],
+    budget: "$800 per person",
+    advancePayment: "$200 (25%)",
+    groupSize: "2-15 persons",
+    showKeyDetails: true,
     upcoming: false,
     featured: true
   },
@@ -536,6 +554,12 @@ export const treks = writable([
     season: "May-September (dry season)",
     bestSeason: "Winter",
     distance: "42 km", // Added total distance field
+    // Key details
+    dates: ["May 20, 2025", "June 15, 2025", "July 10, 2025"],
+    budget: "$650 per person",
+    advancePayment: "$200 (31%)",
+    groupSize: "8-16 persons",
+    showKeyDetails: false,
     upcoming: false,
     featured: false
   },
@@ -552,6 +576,12 @@ export const treks = writable([
     season: "June-September",
     bestSeason: "Summer",
     distance: "170 km", // Added total distance field
+    // Key details
+    dates: ["June 25, 2025", "July 15, 2025", "August 5, 2025"],
+    budget: "$1,200 per person",
+    advancePayment: "$300 (25%)",
+    groupSize: "6-14 persons",
+    showKeyDetails: true,
     upcoming: false,
     featured: false
   },
@@ -567,8 +597,13 @@ export const treks = writable([
     location: "Tanzania",
     season: "January-March, June-October",
     bestSeason: "Winter",
-    distance: "62 km",
     distance: "70 km", // Added total distance field
+    // Key details
+    dates: ["January 15, 2026", "February 10, 2026", "July 25, 2025"],
+    budget: "$3,200 per person",
+    advancePayment: "$800 (25%)",
+    groupSize: "8-12 persons",
+    showKeyDetails: false,
     upcoming: false,
     featured: false
   },
@@ -584,8 +619,13 @@ export const treks = writable([
     location: "New Zealand",
     season: "October-April",
     bestSeason: "Summer",
-    distance: "53 km",
     distance: "53 km", // Added total distance field
+    // Key details
+    dates: ["November 5, 2025", "December 15, 2025", "January 20, 2026"],
+    budget: "17000/- per person",
+    advancePayment: "5000/- (29%)",
+    groupSize: "4-8 persons",
+    showKeyDetails: true,
     upcoming: false,
     featured: false
   },
@@ -601,8 +641,13 @@ export const treks = writable([
     location: "Scotland",
     season: "May-September",
     bestSeason: "Summer",
-    distance: "154 km",
     distance: "152 km", // Added total distance field
+    // Key details
+    dates: ["May 15, 2025", "June 10, 2025", "August 20, 2025"],
+    budget: "$950 per person",
+    advancePayment: "$250 (26%)",
+    groupSize: "4-12 persons",
+    showKeyDetails: false,
     upcoming: false,
     featured: false
   },
@@ -618,8 +663,13 @@ export const treks = writable([
     location: "Chile",
     season: "November-March",
     bestSeason: "Autumn",
-    distance: "110 km",
     distance: "130 km", // Added total distance field
+    // Key details
+    dates: ["November 10, 2025", "December 5, 2025", "February 15, 2026"],
+    budget: "$2,100 per person",
+    advancePayment: "$500 (24%)",
+    groupSize: "6-10 persons",
+    showKeyDetails: true,
     upcoming: false,
     featured: false
   },
@@ -635,8 +685,13 @@ export const treks = writable([
     location: "India (Himachal Pradesh)",
     season: "June-September",
     bestSeason: "Summer",
-    distance: "64 km",
     distance: "75 km", // Added total distance field
+    // Key details
+    dates: ["5th Sept, 2025", "14th Sept, 2025"],
+    budget: "17,000/- per person",
+    advancePayment: "5000/- (30%)",
+    groupSize: "8-12 persons",
+    showKeyDetails: true,
     longDescription: "The Hampta Pass trek is a mesmerizing journey that takes you from the verdant Kullu Valley to the stark landscapes of Lahaul. This dramatic change in terrain over a short distance is what makes this trek unique. As you cross the pass, you'll witness spectacular views of the Dhauladhar ranges and Pir Panjal mountains. The highlight of this trek is the beautiful crescent-shaped Chandratal Lake (Moon Lake) with its crystal clear blue waters. This special 9-day package includes comfortable train travel from Howrah to Delhi (Howrah-Kalka Mail) and return by premium Rajdhani Express, making it convenient for trekkers from Eastern India.",
     highlights: [
       "Dramatic change in landscapes from lush green to desert terrain",
@@ -648,58 +703,41 @@ export const treks = writable([
     itinerary: [
       { 
         day: 1, 
-        title: "Train Journey from Howrah to Delhi", 
+        title: "Train Journey from Howrah to Chandigarh - 5th Sept, 2025", 
         description: "Begin your adventure with a comfortable overnight train journey from Howrah to Delhi, traversing the heartland of India.",
         duration: "17-18 hours train journey",
         distance: "1,450 km",
         elevation: "0m",
         difficulty: "Easy",
-        accommodation: "Sleeper/AC Class on Train",
+        accommodation: "Train",
         meals: "Meals available for purchase on train",
         locations: [
           { name: "Howrah", color: "#673ab7", icon: "fa-solid fa-city" },
-          { name: "Howrah-Kalka Mail (12311)", color: "#673ab7", icon: "fa-solid fa-train" },
-          { name: "Delhi", color: "#673ab7", icon: "fa-solid fa-train-subway" }
+          { name: "Netaji Express", color: "green", icon: "fa-solid fa-train" },
+          { name: "Chandigarh", color: "#673ab7", icon: "fa-solid fa-city" }
         ],
         highlights: "Scenic journey through multiple states, crossing the Gangetic plains, overnight travel experience"
       },
       { 
         day: 2, 
-        title: "Delhi to Manali by Overnight Bus", 
-        description: "Arrive in Delhi in the morning and spend the day exploring before taking an overnight bus to Manali.",
-        duration: "12-14 hours bus journey",
-        distance: "550 km",
-        elevation: "+2,050m",
+        title: "Chandigarh to Manali - Manali Acclimatization and Preparation - 6th Sept, 2025", 
+        description: "Arrive in Manali. Day for rest, acclimatization, gear check, and briefing about the trek.",
+        duration: "Free day for acclimatization",
+        distance: "Local exploration",
+        elevation: "2,050m (stable)",
         difficulty: "Easy",
         accommodation: "Volvo AC Sleeper Bus",
-        meals: "Breakfast, Lunch in Delhi",
+        meals: "Breakfast, Lunch in Chandigarh, Dinner in Manali",
         locations: [
-          { name: "Delhi", color: "#673ab7", icon: "fa-solid fa-city" },
-          { name: "HPTDC/HRTC Volvo Bus", color: "#673ab7", icon: "fa-solid fa-bus" },
+          { name: "Chandigarh", color: "#673ab7", icon: "fa-solid fa-city" },
+          { name: "Bus", color: "green", icon: "fa-solid fa-bus" },
           { name: "Manali", color: "#673ab7", icon: "fa-solid fa-mountain-city" }
         ],
         highlights: "Brief exploration of Delhi, scenic night journey through the foothills of Himalayas, ascending to higher altitudes"
       },
       { 
         day: 3, 
-        title: "Manali Acclimatization and Preparation", 
-        description: "Arrive in Manali in the morning. Day for rest, acclimatization, gear check, and briefing about the trek.",
-        duration: "Free day for acclimatization",
-        distance: "Local exploration",
-        elevation: "2,050m (stable)",
-        difficulty: "Easy",
-        accommodation: "Hotel in Manali",
-        meals: "Breakfast, Lunch, Dinner",
-        locations: [
-          { name: "Manali", color: "#673ab7", icon: "fa-solid fa-mountain-city" },
-          { name: "Hadimba Temple", color: "#673ab7", icon: "fa-solid fa-place-of-worship" },
-          { name: "Mall Road", color: "#673ab7", icon: "fa-solid fa-store" }
-        ],
-        highlights: "Exploring Manali, visiting Hadimba Temple, strolling on Mall Road, pre-trek briefing, meeting your trek guides"
-      },
-      { 
-        day: 4, 
-        title: "Drive from Manali to Jobra, trek to Chika (3,100m)", 
+        title: "Drive from Manali to Jobra, trek to Chika (3,100m) - 7th Sept, 2025", 
         description: "After a scenic drive to Jobra, begin your trek through beautiful pine forests and meadows to reach Chika campsite.",
         duration: "2 hours drive, 2-3 hours trekking",
         distance: "4 km trekking",
@@ -709,14 +747,14 @@ export const treks = writable([
         meals: "Breakfast, Packed Lunch, Dinner",
         locations: [
           { name: "Manali", color: "#673ab7", icon: "fa-solid fa-mountain-city" },
-          { name: "Jobra", color: "#673ab7", icon: "fa-solid fa-bus" },
-          { name: "Chika", color: "#673ab7", icon: "fa-solid fa-campground" }
+          { name: "Jobra", color: "#673ab7", icon: "fa-solid fa-mountain-city" },
+          { name: "Chika", color: "#673ab7", icon: "fa-solid fa-mountain-city" }
         ],
         highlights: "Beautiful drive through Kullu Valley, first views of the Pir Panjal range, alpine meadows with wildflowers"
       },
       { 
-        day: 5, 
-        title: "Trek to Balu Ka Ghera (3,600m)", 
+        day: 4, 
+        title: "Trek to Balu Ka Ghera (3,600m) - 8th Sept, 2025", 
         description: "Trek alongside the Hampta River through magnificent valleys with waterfalls and wildflowers.",
         duration: "5-6 hours trekking",
         distance: "8 km",
@@ -732,8 +770,8 @@ export const treks = writable([
         highlights: "Pristine river crossings, cascading waterfalls, vast meadows, stunning valley views"
       },
       { 
-        day: 6, 
-        title: "Trek to Hampta Pass (4,270m) and Shea Goru (3,900m)", 
+        day: 5, 
+        title: "Trek to Hampta Pass (4,270m) and Shea Goru (3,900m) - 9th Sept, 2025", 
         description: "The challenging climb to Hampta Pass is rewarded with breathtaking views before descending to Shea Goru.",
         duration: "7-8 hours trekking",
         distance: "12 km",
@@ -749,8 +787,8 @@ export const treks = writable([
         highlights: "Panoramic views from Hampta Pass, dramatic landscape change from green Kullu Valley to barren Lahaul Valley"
       },
       { 
-        day: 7, 
-        title: "Trek to Chatru (3,300m), drive to Chandratal (4,300m)", 
+        day: 6, 
+        title: "Trek to Chatru (3,300m), drive to Chandratal (4,300m) - 10th Sept, 2025", 
         description: "Trek to Chatru and then drive to the enchanting Chandratal Lake, where you can enjoy sunset views.",
         duration: "4-5 hours trekking, 2 hours drive",
         distance: "10 km trekking, 30 km driving",
@@ -766,36 +804,36 @@ export const treks = writable([
         highlights: "Crossing the Chandra River, first views of the barren Spiti landscape, breathtaking Chandratal Lake with its crescent shape"
       },
       { 
-        day: 8, 
-        title: "Drive from Chandratal to Manali, board night bus to Delhi", 
+        day: 7, 
+        title: "Drive from Chandratal to Manali, board night bus to Delhi - 11th Sept, 2025", 
         description: "A long but scenic drive back to Manali via the Rohtang Pass, followed by an overnight bus to Delhi.",
         duration: "6-7 hours driving to Manali, 12-14 hours bus to Delhi",
         distance: "120 km to Manali, 550 km to Delhi",
         elevation: "-1000m to Manali, -2,050m to Delhi",
         difficulty: "Easy",
-        accommodation: "Volvo AC Sleeper Bus",
+        accommodation: "Bus",
         meals: "Breakfast, Lunch",
         locations: [
-          { name: "Chandratal Lake", color: "#673ab7", icon: "fa-solid fa-bus" },
+          { name: "Chandratal Lake", color: "#673ab7", icon: "fa-solid fa-water" },
           { name: "Rohtang Pass", color: "#673ab7", icon: "fa-solid fa-mountain" },
           { name: "Manali", color: "#673ab7", icon: "fa-solid fa-mountain-city" },
-          { name: "HPTDC/HRTC Volvo Bus", color: "#673ab7", icon: "fa-solid fa-bus" }
+          { name: "Bus", color: "green", icon: "fa-solid fa-bus" }
         ],
         highlights: "Views from Rohtang Pass (3,980m), spectacular landscapes, celebration lunch in Manali"
       },
       { 
-        day: 9, 
-        title: "Delhi to Howrah by Train", 
+        day: 8, 
+        title: "Delhi to Howrah by Train - 12th Sept, 2025", 
         description: "Return to Howrah by train",
         duration: "17 hours train journey",
         distance: "1,450 km",
         elevation: "0m",
         difficulty: "Easy",
-        accommodation: "AC Class on Rajdhani Express",
+        accommodation: "Train",
         meals: "All meals included on Rajdhani Express",
         locations: [
-          { name: "Delhi", color: "#673ab7", icon: "fa-solid fa-train-subway" },
-          { name: "Howrah Rajdhani Express (12301)", color: "#673ab7", icon: "fa-solid fa-train" },
+          { name: "Delhi", color: "#673ab7", icon: "fa-solid fa-city" },
+          { name: "Poorva Express", color: "green", icon: "fa-solid fa-train" },
           { name: "Howrah", color: "#673ab7", icon: "fa-solid fa-city" }
         ],
         highlights: "Premium train experience with all meals, completing the full circle journey, reflecting on your Himalayan adventure"
