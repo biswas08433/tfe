@@ -24,7 +24,7 @@
           <h4 class="title is-5">Send Us a Message</h4>
           <p class="mb-4">Have questions about our treks or need custom planning assistance? Fill out our detailed contact form to get personalized help from our adventure specialists.</p>
           
-          <a href="https://forms.gle/YourGoogleFormLink" class="button is-primary " target="_blank" rel="noopener noreferrer">
+          <a href="https://forms.gle/qpLpbttoUfKMUSPf8" class="button is-primary " target="_blank" rel="noopener noreferrer">
             <span class="icon">
               <i class="fas fa-paper-plane"></i>
             </span>
@@ -44,10 +44,10 @@
           <h4 class="title is-5">Contact Information</h4>
           
           <div class="content">
-            <p><strong>Address:</strong><br>
+            <!-- <p><strong>Address:</strong><br>
             123 Adventure Street<br>
             Trekking Heights<br>
-            Himalaya Valley, 10001</p>
+            Himalaya Valley, 10001</p> -->
             
             <p><strong>Phone/Whatsapp:</strong><br>
             +91 94773 95560</p>
@@ -71,7 +71,7 @@
           
           <h4 class="title is-5 mt-5">Follow Us</h4>
           <div class="buttons">
-            <a class="button is-info" href="#" rel="noopener noreferrer">
+            <a class="button is-info" href="/" rel="noopener noreferrer">
               <span class="icon">
                 <i class="fab fa-facebook-f"></i>
               </span>

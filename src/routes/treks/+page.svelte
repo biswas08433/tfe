@@ -1,35 +1,35 @@
 <script>
-  import { onMount } from 'svelte';
-  import { treks, seasons, getTreksByCategory } from '$lib/stores';
-  
+  import { onMount } from "svelte";
+  import { treks, seasons, getTreksByCategory } from "$lib/stores";
+
   let treksList = [];
   let categoriesList = [];
   let selectedCategory = "all";
   let filteredTreks = [];
-  
+
   // Subscribe to stores
   onMount(() => {
-    const treksUnsubscribe = treks.subscribe(value => {
+    const treksUnsubscribe = treks.subscribe((value) => {
       treksList = value;
       updateFilteredTreks();
     });
-    
-    const seasonsUnsubscribe = seasons.subscribe(value => {
+
+    const seasonsUnsubscribe = seasons.subscribe((value) => {
       categoriesList = value;
     });
-    
+
     // Unsubscribe when component is destroyed
     return () => {
       treksUnsubscribe();
       seasonsUnsubscribe();
     };
   });
-  
+
   // Update filtered treks when category changes
   function updateFilteredTreks() {
     filteredTreks = getTreksByCategory(selectedCategory, treksList);
   }
-  
+
   // Reactive statement to update filtered treks when category changes
   $: if (selectedCategory && treksList.length > 0) {
     updateFilteredTreks();
@@ -57,7 +57,10 @@
         <ul>
           {#each categoriesList as category}
             <li class:is-active={selectedCategory === category.id}>
-              <a href="#{category.id}" on:click|preventDefault={() => selectedCategory = category.id}>
+              <a
+                href="#{category.id}"
+                on:click|preventDefault={() => (selectedCategory = category.id)}
+              >
                 {category.name}
               </a>
             </li>
@@ -65,7 +68,7 @@
         </ul>
       </div>
     </div>
-    
+
     <!-- Trek Cards -->
     <div class="columns is-multiline">
       {#each filteredTreks as trek}
@@ -83,21 +86,27 @@
                 <span class="tag is-info ml-2">{trek.duration}</span>
                 <span class="tag is-success ml-2">{trek.distance}</span>
               </p>
-              
+
               <div class="content">
                 <p>{trek.description}</p>
-                <div class="is-flex is-justify-content-space-between has-text-grey mt-4">
+                <div
+                  class="is-flex is-justify-content-space-between has-text-grey mt-4"
+                >
                   <span>
-                    <strong>Max Alt:</strong> {trek.altitude}
+                    <strong>Max Alt:</strong>
+                    {trek.altitude}
                   </span>
                   <span>
-                    <strong>Location:</strong> {trek.location}
+                    <strong>Location:</strong>
+                    {trek.location}
                   </span>
                 </div>
               </div>
             </div>
             <footer class="card-footer">
-              <a href={`/treks/${trek.id}`} class="card-footer-item">Learn More</a>
+              <a href={`/treks/${trek.id}`} class="card-footer-item"
+                >Learn More</a
+              >
               <a href="/contact" class="card-footer-item">Book Now</a>
             </footer>
           </div>
@@ -109,7 +118,10 @@
     {#if filteredTreks.length === 0}
       <div class="has-text-centered my-6">
         <p class="is-size-4">No treks found in this category.</p>
-        <button class="button is-primary mt-4" on:click={() => selectedCategory = "all"}>
+        <button
+          class="button is-primary mt-4"
+          on:click={() => (selectedCategory = "all")}
+        >
           Show All Treks
         </button>
       </div>

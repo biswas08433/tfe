@@ -1,20 +1,20 @@
 <script>
-  import { onMount } from 'svelte';
-  import { treks, featuredTreks, upcomingTreks } from '$lib/stores';
-  
+  import { onMount } from "svelte";
+  import { treks, featuredTreks, upcomingTreks } from "$lib/stores";
+
   let featuredTreksList = [];
   let upcomingTreksList = [];
-  
+
   // Subscribe to the stores
   onMount(() => {
-    const unsubscribeFeatured = featuredTreks.subscribe(value => {
+    const unsubscribeFeatured = featuredTreks.subscribe((value) => {
       featuredTreksList = value;
     });
-    
-    const unsubscribeUpcoming = upcomingTreks.subscribe(value => {
+
+    const unsubscribeUpcoming = upcomingTreks.subscribe((value) => {
       upcomingTreksList = value;
     });
-    
+
     // Unsubscribe when component is destroyed
     return () => {
       unsubscribeFeatured();
@@ -36,9 +36,7 @@
     <div class="container">
       <div class="columns">
         <div class="column is-7">
-          <p class="title is-1">
-            Discover Your Next Adventure
-          </p>
+          <p class="title is-1">Discover Your Next Adventure</p>
           <p class="subtitle is-4">
             Explore breathtaking treks and travel destinations around the world
           </p>
@@ -57,7 +55,7 @@
 <section class="section has-background-warning-light">
   <div class="container">
     <h2 class="title is-2 has-text-centered mb-6">Upcoming Treks</h2>
-    
+
     <div class="columns is-multiline">
       {#if upcomingTreksList.length > 0}
         {#each upcomingTreksList as trek}
@@ -78,7 +76,7 @@
                 </p>
                 <div class="content">
                   {trek.description}
-                  <br>
+                  <br />
                   <a href={`/treks/${trek.id}`}>Learn more</a>
                 </div>
               </div>
@@ -100,13 +98,14 @@
 <section class="section">
   <div class="container">
     <h2 class="title is-2 has-text-centered mb-6">Featured Treks</h2>
-    
+
     <div class="columns is-multiline">
       {#each featuredTreksList as trek}
         <div class="column is-4">
           <div class="card">
             <div class="card-image">
-              <figure class="image is-4by3">                <img src={trek.image} alt={trek.title} />
+              <figure class="image is-4by3">
+                <img src={trek.image} alt={trek.title} />
               </figure>
             </div>
             <div class="card-content">
@@ -118,7 +117,7 @@
               </p>
               <div class="content">
                 {trek.description}
-                <br>
+                <br />
                 <a href={`/treks/${trek.id}`}>Learn more</a>
               </div>
             </div>
@@ -133,34 +132,54 @@
 <section class="section has-background-light">
   <div class="container">
     <h2 class="title is-2 has-text-centered mb-6">Best Seasons for Trekking</h2>
-    
+
     <div class="columns is-multiline">
       <div class="column is-3">
         <div class="box has-text-centered">
           <h3 class="title is-4">Spring Treks</h3>
-          <p>Perfect for wildflowers and mild temperatures. Ideal for many Himalayan treks.</p>
-          <a href="/treks/categories/spring" class="button is-primary mt-4">Explore</a>
+          <p>
+            Perfect for wildflowers and mild temperatures. Ideal for many
+            Himalayan treks.
+          </p>
+          <a href="/treks/categories/spring" class="button is-primary mt-4"
+            >Explore</a
+          >
         </div>
       </div>
       <div class="column is-3">
         <div class="box has-text-centered">
           <h3 class="title is-4">Summer Treks</h3>
-          <p>Great for European Alps and higher latitude regions with long daylight hours.</p>
-          <a href="/treks/categories/summer" class="button is-primary mt-4">Explore</a>
+          <p>
+            Great for European Alps and higher latitude regions with long
+            daylight hours.
+          </p>
+          <a href="/treks/categories/summer" class="button is-primary mt-4"
+            >Explore</a
+          >
         </div>
       </div>
       <div class="column is-3">
         <div class="box has-text-centered">
           <h3 class="title is-4">Autumn Treks</h3>
-          <p>Clear skies and pleasant temperatures in the Himalayas. Beautiful fall colors.</p>
-          <a href="/treks/categories/autumn" class="button is-primary mt-4">Explore</a>
+          <p>
+            Clear skies and pleasant temperatures in the Himalayas. Beautiful
+            fall colors.
+          </p>
+          <a href="/treks/categories/autumn" class="button is-primary mt-4"
+            >Explore</a
+          >
         </div>
       </div>
       <div class="column is-3">
         <div class="box has-text-centered">
           <h3 class="title is-4">Winter Treks</h3>
-          <p>Ideal for low-altitude treks and Southern Hemisphere adventures. Snow scenery.</p>
-          <a href="/treks/categories/winter" class="button is-primary mt-4">Explore</a>
+          <p>
+            Ideal for low-altitude treks and Southern Hemisphere adventures.
+            Snow scenery.
+          </p>
+          <a href="/treks/categories/winter" class="button is-primary mt-4"
+            >Explore</a
+          >
         </div>
       </div>
     </div>
@@ -172,7 +191,9 @@
   <div class="container">
     <div class="box has-text-centered p-6">
       <h2 class="title is-3">Ready to Plan Your Adventure?</h2>
-      <p class="subtitle is-5 mb-5">Contact our trek experts for personalized itineraries</p>
+      <p class="subtitle is-5 mb-5">
+        Contact our trek experts for personalized itineraries
+      </p>
       <a href="/contact" class="button is-primary is-large">Contact Us</a>
     </div>
   </div>
@@ -180,7 +201,8 @@
 
 <style>
   .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=2070');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=2070");
     background-size: cover;
     background-position: center;
   }
@@ -204,7 +226,7 @@
   .content {
     flex-grow: 1;
   }
-  
+
   .upcoming-badge {
     position: absolute;
     top: 10px;

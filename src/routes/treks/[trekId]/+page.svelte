@@ -256,38 +256,38 @@
 
           <!-- Key Details Section -->
           {#if trek && trek.showKeyDetails}
-          <div class="card mt-5">
-            <div class="card-header">
-              <div class="card-header-title">
-                <h3 class="title is-4 mb-0">Key Details</h3>
+            <div class="card mt-5">
+              <div class="card-header">
+                <div class="card-header-title">
+                  <h3 class="title is-4 mb-0">Key Details</h3>
+                </div>
               </div>
-            </div>
-            <div class="card-content">
-              {#if trek.dates && trek.dates.length > 0}
-                <div class="upcoming-dates mb-4">
-                  <h4 class="title is-6 mb-2">
-                    <span class="icon-text"
-                      ><span class="icon"
-                        ><i class="fas fa-calendar-alt"></i></span
-                      ><span>Date:</span></span
-                    >
-                  </h4>
-                  {#if trek.dates.length >= 2}
-                    <div class="date-range">
-                      <span class="tag is-primary is-medium mb-3"
-                        >{trek.dates[0]}</span
+              <div class="card-content">
+                {#if trek.dates && trek.dates.length > 0}
+                  <div class="upcoming-dates mb-4">
+                    <h4 class="title is-6 mb-2">
+                      <span class="icon-text"
+                        ><span class="icon"
+                          ><i class="fas fa-calendar-alt"></i></span
+                        ><span>Date:</span></span
                       >
-                      -
-                      <span class="tag is-primary is-medium mb-3"
-                        >{trek.dates[trek.dates.length - 1]}</span
-                      >
-                    </div>
-                  {:else}
-                    <div class="date-range tag is-primary is-medium mb-3">
-                      <span>{trek.dates[0]}</span>
-                    </div>
-                  {/if}
-                  <!-- <div class="dates-list mt-2">
+                    </h4>
+                    {#if trek.dates.length >= 2}
+                      <div class="date-range">
+                        <span class="tag is-primary is-medium mb-3"
+                          >{trek.dates[0]}</span
+                        >
+                        -
+                        <span class="tag is-primary is-medium mb-3"
+                          >{trek.dates[trek.dates.length - 1]}</span
+                        >
+                      </div>
+                    {:else}
+                      <div class="date-range tag is-primary is-medium mb-3">
+                        <span>{trek.dates[0]}</span>
+                      </div>
+                    {/if}
+                    <!-- <div class="dates-list mt-2">
                     <h6 class="is-size-7 has-text-grey mb-2">
                       Individual trek start dates:
                     </h6>
@@ -295,100 +295,105 @@
                       <div class="tag is-light mb-2 mr-2">{date}</div>
                     {/each}
                   </div> -->
+                  </div>
+                {:else}
+                  <div class="upcoming-dates mb-4">
+                    <h4 class="title is-6 mb-2">
+                      <span class="icon-text"
+                        ><span class="icon"
+                          ><i class="fas fa-calendar-alt"></i></span
+                        ><span>Season:</span></span
+                      >
+                    </h4>
+                    <div class="date-range tag is-info is-light is-medium mb-3">
+                      <span
+                        >{trek.season || "Contact us for current dates"}</span
+                      >
+                    </div>
+                  </div>
+                {/if}
+
+                <div class="financial-details">
+                  {#if trek.budget}
+                    <div class="detail-item">
+                      <span class="icon-text">
+                        <span class="icon has-text-success"
+                          ><i class="fas fa-money-bill-wave"></i></span
+                        >
+                        <span><strong>Budget:</strong> {trek.budget}</span>
+                      </span>
+                    </div>
+                  {:else}
+                    <div class="detail-item">
+                      <span class="icon-text">
+                        <span class="icon has-text-success"
+                          ><i class="fas fa-money-bill-wave"></i></span
+                        >
+                        <span><strong>Budget:</strong> Contact for pricing</span
+                        >
+                      </span>
+                    </div>
+                  {/if}
+
+                  {#if trek.advancePayment}
+                    <div class="detail-item mt-2">
+                      <span class="icon-text">
+                        <span class="icon has-text-info"
+                          ><i class="fas fa-credit-card"></i></span
+                        >
+                        <span
+                          ><strong>Advance Payment:</strong>
+                          {trek.advancePayment}</span
+                        >
+                      </span>
+                    </div>
+                  {:else}
+                    <div class="detail-item mt-2">
+                      <span class="icon-text">
+                        <span class="icon has-text-info"
+                          ><i class="fas fa-credit-card"></i></span
+                        >
+                        <span
+                          ><strong>Advance Payment:</strong> Contact for details</span
+                        >
+                      </span>
+                    </div>
+                  {/if}
+
+                  {#if trek.groupSize}
+                    <div class="detail-item mt-2">
+                      <span class="icon-text">
+                        <span class="icon has-text-primary"
+                          ><i class="fas fa-users"></i></span
+                        >
+                        <span
+                          ><strong>Group Size:</strong> {trek.groupSize}</span
+                        >
+                      </span>
+                    </div>
+                  {:else}
+                    <div class="detail-item mt-2">
+                      <span class="icon-text">
+                        <span class="icon has-text-primary"
+                          ><i class="fas fa-users"></i></span
+                        >
+                        <span><strong>Group Size:</strong> Varies by trek</span>
+                      </span>
+                    </div>
+                  {/if}
                 </div>
-              {:else}
-                <div class="upcoming-dates mb-4">
-                  <h4 class="title is-6 mb-2">
-                    <span class="icon-text"
-                      ><span class="icon"
-                        ><i class="fas fa-calendar-alt"></i></span
-                      ><span>Season:</span></span
+
+                <div class="notification is-light is-warning mt-4 is-size-7">
+                  <span class="icon-text">
+                    <span class="icon"><i class="fas fa-info-circle"></i></span>
+                    <span
+                      >Prices may vary based on group size and specific
+                      requirements. Contact us for custom pricing.</span
                     >
-                  </h4>
-                  <div class="date-range tag is-info is-light is-medium mb-3">
-                    <span>{trek.season || "Contact us for current dates"}</span>
-                  </div>
+                  </span>
                 </div>
-              {/if}
-
-              <div class="financial-details">
-                {#if trek.budget}
-                  <div class="detail-item">
-                    <span class="icon-text">
-                      <span class="icon has-text-success"
-                        ><i class="fas fa-money-bill-wave"></i></span
-                      >
-                      <span><strong>Budget:</strong> {trek.budget}</span>
-                    </span>
-                  </div>
-                {:else}
-                  <div class="detail-item">
-                    <span class="icon-text">
-                      <span class="icon has-text-success"
-                        ><i class="fas fa-money-bill-wave"></i></span
-                      >
-                      <span><strong>Budget:</strong> Contact for pricing</span>
-                    </span>
-                  </div>
-                {/if}
-
-                {#if trek.advancePayment}
-                  <div class="detail-item mt-2">
-                    <span class="icon-text">
-                      <span class="icon has-text-info"
-                        ><i class="fas fa-credit-card"></i></span
-                      >
-                      <span
-                        ><strong>Advance Payment:</strong>
-                        {trek.advancePayment}</span
-                      >
-                    </span>
-                  </div>
-                {:else}
-                  <div class="detail-item mt-2">
-                    <span class="icon-text">
-                      <span class="icon has-text-info"
-                        ><i class="fas fa-credit-card"></i></span
-                      >
-                      <span
-                        ><strong>Advance Payment:</strong> Contact for details</span
-                      >
-                    </span>
-                  </div>
-                {/if}
-
-                {#if trek.groupSize}
-                  <div class="detail-item mt-2">
-                    <span class="icon-text">
-                      <span class="icon has-text-primary"
-                        ><i class="fas fa-users"></i></span
-                      >
-                      <span><strong>Group Size:</strong> {trek.groupSize}</span>
-                    </span>
-                  </div>
-                {:else}
-                  <div class="detail-item mt-2">
-                    <span class="icon-text">
-                      <span class="icon has-text-primary"
-                        ><i class="fas fa-users"></i></span
-                      >
-                      <span><strong>Group Size:</strong> Varies by trek</span>
-                    </span>
-                  </div>
-                {/if}
-              </div>
-
-              <div class="notification is-light is-warning mt-4 is-size-7">
-                <span class="icon-text">
-                  <span class="icon"><i class="fas fa-info-circle"></i></span>
-                  <span
-                    >Prices may vary based on group size and specific
-                    requirements. Contact us for custom pricing.</span
-                  >
-                </span>
               </div>
             </div>
-          </div>
           {/if}
 
           <!-- Related Treks -->
@@ -408,8 +413,10 @@
                       <p class="subtitle is-7">
                         {relatedTrek.duration} | {relatedTrek.distance}
                       </p>
-                      <a href={`/treks/${relatedTrek.id}`} target="_blank" class="is-size-7"
-                        >View Trek</a
+                      <a
+                        href={`/treks/${relatedTrek.id}`}
+                        target="_blank"
+                        class="is-size-7">View Trek</a
                       >
                     </div>
                   </div>

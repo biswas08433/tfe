@@ -1,7 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
-  import { experiences } from '$lib/stores';
-  
+  import { onMount } from "svelte";
+  import { experiences } from "$lib/stores";
+
   // Experience data from store
   let experiencesList = [];
 
@@ -28,14 +28,14 @@
   // Initialize Swiper and subscribe to experiences store on mount
   onMount(() => {
     // Subscribe to the experiences store
-    const unsubscribe = experiences.subscribe(value => {
+    const unsubscribe = experiences.subscribe((value) => {
       experiencesList = value;
     });
-    
+
     // We would normally initialize Swiper here
     // This is a placeholder for the actual initialization that would happen with Swiper.js
     // In a real project, you would import and initialize Swiper here
-    
+
     // Unsubscribe when component is destroyed
     return unsubscribe;
   });
@@ -44,8 +44,14 @@
 <svelte:head>
   <title>Trek Experiences | The Flyin' Eagle</title>
   <!-- Add Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+  />
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"
+  ></script>
 </svelte:head>
 
 <!-- Hero Section -->
@@ -53,7 +59,9 @@
   <div class="hero-body experience-hero">
     <div class="container has-text-centered">
       <h1 class="title is-1">Our Trek Experiences</h1>
-      <h2 class="subtitle is-3">Unforgettable journeys and breathtaking moments</h2>
+      <h2 class="subtitle is-3">
+        Unforgettable journeys and breathtaking moments
+      </h2>
     </div>
   </div>
 </section>
@@ -63,8 +71,9 @@
   <div class="container">
     <div class="content has-text-centered mb-6">
       <p class="is-size-5 has-text-grey">
-        Explore our collection of completed treks and adventures. Each experience represents countless memories,
-        challenges overcome, and the magic of exploring our world's most beautiful landscapes.
+        Explore our collection of completed treks and adventures. Each
+        experience represents countless memories, challenges overcome, and the
+        magic of exploring our world's most beautiful landscapes.
       </p>
     </div>
 
@@ -73,7 +82,10 @@
       <ul>
         {#each experiencesList as experience, index}
           <li class={activeExperienceIndex === index ? "is-active" : ""}>
-            <a href="#{experience.id}" on:click|preventDefault={() => (activeExperienceIndex = index)}>
+            <a
+              href="#{experience.id}"
+              on:click|preventDefault={() => (activeExperienceIndex = index)}
+            >
               <span>{experience.title}</span>
             </a>
           </li>
@@ -84,12 +96,16 @@
     <!-- Experience Content -->
     <div class="experience-content">
       {#each experiencesList as experience, expIndex}
-        <div class="experience-item" class:is-active={activeExperienceIndex === expIndex}>
+        <div
+          class="experience-item"
+          class:is-active={activeExperienceIndex === expIndex}
+        >
           <div class="columns is-vcentered mb-5">
             <div class="column is-8">
               <h3 class="title is-3">{experience.title}</h3>
               <p class="subtitle is-5 has-text-primary">
-                <span>{experience.date}</span> • <span>{experience.location}</span>
+                <span>{experience.date}</span> •
+                <span>{experience.location}</span>
               </p>
               <p class="mb-5">{experience.description}</p>
             </div>
@@ -99,7 +115,9 @@
                   <blockquote>
                     "{experience.testimonial.quote}"
                   </blockquote>
-                  <p class="has-text-right"><strong>— {experience.testimonial.author}</strong></p>
+                  <p class="has-text-right">
+                    <strong>— {experience.testimonial.author}</strong>
+                  </p>
                 </div>
               </div>
             </div>
@@ -108,21 +126,28 @@
           <!-- Gallery -->
           <div class="gallery-container mb-6">
             <h4 class="title is-4 has-text-centered mb-4">Journey Gallery</h4>
-            
+
             <!-- Main Gallery -->
             <div class="swiper-container gallery-main">
               <div class="gallery-main-wrapper">
                 {#each experience.gallery as image, index}
-                  <div 
-                    class="gallery-slide" 
-                    class:is-active={activeGalleryIndex === index && activeExperienceIndex === expIndex}
+                  <div
+                    class="gallery-slide"
+                    class:is-active={activeGalleryIndex === index &&
+                      activeExperienceIndex === expIndex}
                     role="button"
                     tabindex="0"
                     on:click={() => showFullscreen(image)}
-                    on:keydown={(e) => e.key === 'Enter' && showFullscreen(image)}
+                    on:keydown={(e) =>
+                      e.key === "Enter" && showFullscreen(image)}
                   >
                     <figure class="image" style="aspect-ratio: 16 / 9;">
-                      <img src={image.src} alt={image.caption} class="gallery-image" style="object-fit: cover; width: 100%; height: 100%;">
+                      <img
+                        src={image.src}
+                        alt={image.caption}
+                        class="gallery-image"
+                        style="object-fit: cover; width: 100%; height: 100%;"
+                      />
                       <div class="caption-overlay">
                         <span class="icon"><i class="fas fa-expand"></i></span>
                       </div>
@@ -131,24 +156,27 @@
                   </div>
                 {/each}
               </div>
-              
+
               <!-- Navigation buttons -->
-              <button 
-                class="gallery-button prev" 
+              <button
+                class="gallery-button prev"
                 aria-label="Previous image"
                 on:click={() => {
-                  activeGalleryIndex = ((activeGalleryIndex - 1) + experience.gallery.length) % experience.gallery.length;
+                  activeGalleryIndex =
+                    (activeGalleryIndex - 1 + experience.gallery.length) %
+                    experience.gallery.length;
                 }}
               >
                 <span class="icon is-large">
                   <i class="fas fa-chevron-left"></i>
                 </span>
               </button>
-              <button 
-                class="gallery-button next" 
+              <button
+                class="gallery-button next"
                 aria-label="Next image"
                 on:click={() => {
-                  activeGalleryIndex = (activeGalleryIndex + 1) % experience.gallery.length;
+                  activeGalleryIndex =
+                    (activeGalleryIndex + 1) % experience.gallery.length;
                 }}
               >
                 <span class="icon is-large">
@@ -156,17 +184,18 @@
                 </span>
               </button>
             </div>
-            
+
             <!-- Thumbnails -->
             <div class="gallery-thumbs mt-4">
               {#each experience.gallery as image, index}
-                <button 
-                  class="thumb" 
-                  class:is-active={activeGalleryIndex === index && activeExperienceIndex === expIndex}
-                  on:click={() => activeGalleryIndex = index}
+                <button
+                  class="thumb"
+                  class:is-active={activeGalleryIndex === index &&
+                    activeExperienceIndex === expIndex}
+                  on:click={() => (activeGalleryIndex = index)}
                   aria-label={`View image: ${image.caption}`}
                 >
-                  <img src={image.src} alt="Thumbnail">
+                  <img src={image.src} alt="Thumbnail" />
                 </button>
               {/each}
             </div>
@@ -189,26 +218,30 @@
 
 <!-- Fullscreen Image Modal -->
 {#if isFullscreen}
-  <div 
-    class="fullscreen-modal" 
-    class:is-active={isFullscreen} 
+  <div
+    class="fullscreen-modal"
+    class:is-active={isFullscreen}
     on:click={closeFullscreen}
-    on:keydown={(e) => e.key === 'Escape' && closeFullscreen()}
+    on:keydown={(e) => e.key === "Escape" && closeFullscreen()}
     role="dialog"
     aria-modal="true"
     aria-label="Image preview"
     tabindex="0"
   >
     <div class="fullscreen-background"></div>
-    <button class="modal-close is-large" aria-label="close" on:click={closeFullscreen}></button>
+    <button
+      class="modal-close is-large"
+      aria-label="close"
+      on:click={closeFullscreen}
+    ></button>
     {#if fullscreenImage}
-      <div 
-        class="fullscreen-content" 
-        on:click|stopPropagation={() => {}} 
+      <div
+        class="fullscreen-content"
+        on:click|stopPropagation={() => {}}
         role="presentation"
       >
         <figure class="image">
-          <img src={fullscreenImage.src} alt={fullscreenImage.caption}>
+          <img src={fullscreenImage.src} alt={fullscreenImage.caption} />
         </figure>
         <p class="caption">{fullscreenImage.caption}</p>
       </div>
@@ -223,7 +256,8 @@
       <div class="column is-6 has-text-centered-mobile">
         <h2 class="title is-2">Create Your Own Trek Story</h2>
         <p class="subtitle is-5 mb-4">
-          Join our upcoming expeditions and add your adventure to our gallery of experiences.
+          Join our upcoming expeditions and add your adventure to our gallery of
+          experiences.
         </p>
         <div class="buttons is-centered-mobile">
           <a href="/treks" class="button is-primary is-medium">
@@ -237,16 +271,16 @@
       <div class="column is-6">
         <div class="photo-collage">
           <div class="collage-item item-1">
-            <img src="/images/experiences/collage/1.jpeg" alt="Trek memories">
+            <img src="/images/experiences/collage/1.jpeg" alt="Trek memories" />
           </div>
           <div class="collage-item item-2">
-            <img src="/images/experiences/collage/2.jpeg" alt="Trek memories">
+            <img src="/images/experiences/collage/2.jpeg" alt="Trek memories" />
           </div>
           <div class="collage-item item-3">
-            <img src="/images/experiences/collage/3.jpeg" alt="Trek memories">
+            <img src="/images/experiences/collage/3.jpeg" alt="Trek memories" />
           </div>
           <div class="collage-item item-4">
-            <img src="/images/experiences/collage/4.jpeg" alt="Trek memories">
+            <img src="/images/experiences/collage/4.jpeg" alt="Trek memories" />
           </div>
         </div>
       </div>
@@ -254,10 +288,13 @@
   </div>
 </section>
 
+<!-- Swiper JS and Font Awesome are imported in the svelte:head at the top -->
+
 <style>
   /* Hero styling */
   .experience-hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/experiences/collage/2.jpeg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("/images/experiences/collage/2.jpeg");
     background-size: cover;
     background-position: center;
   }
@@ -285,7 +322,9 @@
     width: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition:
+      opacity 0.5s ease,
+      visibility 0.5s ease;
   }
 
   .experience-item.is-active {
@@ -297,7 +336,7 @@
   /* Testimonial styling */
   .testimonial {
     border-left: 4px solid var(--primary);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
   }
 
@@ -346,7 +385,7 @@
 
   .gallery-image {
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
 
@@ -356,7 +395,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -386,7 +425,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     z-index: 10;
     transition: all 0.3s ease;
@@ -452,7 +491,9 @@
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
   }
 
   .fullscreen-modal.is-active {
@@ -500,7 +541,7 @@
   .collage-item {
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
   .collage-item img {
@@ -536,8 +577,12 @@
 
   /* Animation */
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -545,19 +590,17 @@
       width: 30px;
       height: 30px;
     }
-    
+
     .gallery-button.prev {
       left: -10px;
     }
-    
+
     .gallery-button.next {
       right: -10px;
     }
-    
+
     .photo-collage {
       height: 300px;
     }
   }
 </style>
-
-<!-- Swiper JS and Font Awesome are imported in the svelte:head at the top -->

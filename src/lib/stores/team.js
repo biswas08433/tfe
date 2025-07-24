@@ -47,10 +47,10 @@ export const teamMembers = writable([
   {
     id: 4,
     name: "Anamitra Basu",
-    position: "Trek Leader",
+    position: "Trek Guide",
     image: "/images/team/default.jpeg", // Placeholder image
     bio: "",
-    expertise: ["Trek Leading", "First Aid", "Group Management"],
+    expertise: ["Trek Leading", "Group Management"],
     category: "Technical Trek Guides and Leaders",
     social: {
       instagram: "https://instagram.com/anamitrabasu",
@@ -62,7 +62,7 @@ export const teamMembers = writable([
     position: "Trek Guide",
     image: "/images/team/default.jpeg", // Placeholder image
     bio: "",
-    expertise: ["Guiding", "Local Knowledge", "Safety"],
+    expertise: ["Guiding", "Navigation", "Photography"],
     category: "Technical Trek Guides and Leaders",
     social: {
       instagram: "https://instagram.com/shambochatterjee",
@@ -74,7 +74,7 @@ export const teamMembers = writable([
     id: 6,
     name: "Sourajyoti",
     position: "Developer",
-    image: "/images/team/default.jpeg", // Placeholder image
+    image: "/images/team/soura.jpeg", // Placeholder image
     bio: "",
     expertise: ["Web Development", "UI/UX", "Digital Marketing"],
     category: "Developer and Promotional Team",
@@ -84,7 +84,7 @@ export const teamMembers = writable([
   },
   {
     id: 7,
-    name: "Soumyadip",
+    name: "Soumyadeep",
     position: "Promotional Team",
     image: "/images/team/default.jpeg", // Placeholder image
     bio: "",
@@ -111,10 +111,10 @@ export const teamMembers = writable([
   {
     id: 9,
     name: "Sandip Paul",
-    position: "Adventure Photographer",
+    position: "Coordinator - Logistics",
     image: "/images/team/sandip.jpeg",
     bio: "",
-    expertise: ["Photography", "Content Creation", "Visual Storytelling"],
+    expertise: [],
     category: "Other Core Members",
     social: {
       instagram: "https://instagram.com/sandippaulphoto",
@@ -124,10 +124,10 @@ export const teamMembers = writable([
   {
     id: 10,
     name: "Bartika Sikdar",
-    position: "Marketing Manager",
+    position: "",
     image: "/images/team/bartika.jpeg",
     bio: "",
-    expertise: ["Marketing", "Client Relations", "Event Management"],
+    expertise: ["Medical Expert - Doctor"],
     category: "Other Core Members",
     social: {
       instagram: "https://instagram.com/bartikadikdar",
@@ -137,7 +137,7 @@ export const teamMembers = writable([
   {
     id: 11,
     name: "Rittwika Sardar",
-    position: "Trekking Coordinator",
+    position: "Marketing - IT manager ",
     image: "/images/team/rittwika.jpeg",
     bio: "",
     expertise: ["Coordination", "Planning", "Client Support"],
@@ -151,7 +151,7 @@ export const teamMembers = writable([
     id: 12,
     name: "Ullash Mishra",
     position: "Core Member",
-    image: "/images/team/default.jpeg", // Placeholder image
+    image: "/images/team/ullash.jpeg", // Placeholder image
     bio: "",
     expertise: ["Logistics", "Support", "Operations"],
     category: "Other Core Members",
