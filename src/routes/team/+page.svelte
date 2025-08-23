@@ -1,346 +1,321 @@
-<script>
-  import { onMount } from "svelte";
-  import { teamMembers } from "$lib/stores";
+<script lang="ts">
+	import { teamMembers, Designation } from '$lib/stores';
 
-  // Team members data from store
-  let teamMembersList = [];
-  let teamByCategory = {};
-  let categories = [
-    "Administration/Founder",
-    "Technical Trek Guides and Leaders",
-    "Developer and Promotional Team",
-    "Other Core Members",
-  ];
+	const designations = Object.values(Designation);
+	const teamByDesignation: Record<string, typeof teamMembers> = {};
 
-  // Subscribe to the team store and organize by category
-  onMount(() => {
-    const unsubscribe = teamMembers.subscribe((value) => {
-      teamMembersList = value;
+	for (const member of teamMembers) {
+		const designation = member.designation;
+		if (!teamByDesignation[designation]) {
+			teamByDesignation[designation] = [];
+		}
+		teamByDesignation[designation].push(member);
+	}
 
-      // Group team members by category
-      teamByCategory = {};
-      categories.forEach((cat) => {
-        teamByCategory[cat] = teamMembersList.filter(
-          (member) => member.category === cat,
-        );
-      });
-    });
+	// Define colors for each designation category
+	const designationColors: Record<string, string> = {
+		[Designation.Administration_Founder]: 'from-blue-500 to-purple-600',
+		[Designation.Technical_Trek_Guides_and_Leaders]: 'from-green-500 to-blue-500',
+		[Designation.Developer_and_Promotional_Team]: 'from-yellow-500 to-orange-500',
+		[Designation.Other_Core_Members]: 'from-purple-500 to-indigo-600'
+	};
 
-    // Unsubscribe when component is destroyed
-    return unsubscribe;
-  });
+	function getDesignationColor(designation: string) {
+		return designationColors[designation] || 'from-gray-500 to-gray-600';
+	}
 </script>
 
 <svelte:head>
-  <title>Our Team | The Flyin' Eagle</title>
+	<title>Our Team | TravelTrek</title>
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="hero is-primary is-medium">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title is-1">Meet Our Team</h1>
-      <h2 class="subtitle is-3">
-        The passionate experts behind your adventures
-      </h2>
-    </div>
-  </div>
+<section class="relative flex min-h-[30vh] items-center justify-center sm:min-h-[70vh]">
+	<!-- Background Image -->
+	<div
+		class="absolute inset-0 z-0 rounded-2xl border-2 border-slate-800 bg-cover bg-center bg-no-repeat sm:rounded-none"
+		style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=2070')"
+	></div>
+	<!-- Top to Bottom Gradient Overlay -->
+	<div
+		class="absolute inset-0 z-0 rounded-2xl sm:rounded-none"
+		style="background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7));"
+	></div>
+
+	<!-- Content -->
+	<div
+		class="relative z-10 mx-auto max-w-7xl rounded-2xl px-4 py-4 text-center text-white drop-shadow-2xl
+		   sm:mx-6 sm:max-w-2xl
+		   lg:max-w-7xl lg:px-8"
+	>
+		<h1 class="mb-6 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
+			Our <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Team</span>
+		</h1>
+		<p class="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-gray-200 md:text-2xl">
+			Discover your perfect adventure from our curated collection of world-class treks
+		</p>
+	</div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="content has-text-centered mb-6">
-      <p class="is-size-5 has-text-grey">
-        Our team of experienced guides and adventure specialists are dedicated
-        to creating unforgettable trekking experiences. With backgrounds ranging
-        from professional mountaineering to environmental conservation, each
-        member brings unique expertise to ensure your journey is safe,
-        educational, and transformative.
-      </p>
-    </div>
+<!-- Team Introduction -->
+<section class="bg-gradient-to-br from-gray-50 to-blue-50 py-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-4xl text-center">
+			<p class="text-lg leading-relaxed text-gray-700">
+				Our team of experienced guides and adventure specialists are dedicated to creating unforgettable trekking
+				experiences. With backgrounds ranging from professional mountaineering to environmental conservation, each
+				member brings unique expertise to ensure your journey is safe, educational, and transformative.
+			</p>
+		</div>
+	</div>
+</section>
 
-    {#each categories as category}
-      <div class="team-category-section mb-6">
-        <h2 class="title is-3 has-text-centered mb-5">{category}</h2>
+<!-- Team Members by Designation -->
+<section class="bg-white py-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		{#each designations as designation}
+			{#if teamByDesignation[designation] && teamByDesignation[designation].length > 0}
+				<div class="mb-20 last:mb-0">
+					<!-- Category Header -->
+					<div class="mb-12 text-center">
+						<h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">{designation}</h2>
+						<div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r {getDesignationColor(designation)}"></div>
+					</div>
 
-        <div class="columns is-multiline">
-          {#each teamByCategory[category] || [] as member}
-            <div class="column is-3-desktop is-3-widescreen">
-              <div class="card team-card">
-                <div class="card-image">
-                  <figure class="image">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      class="team-image"
-                    />
-                  </figure>
-                  <div class="social-overlay">
-                    <div class="social-icons">
-                      {#if member.social.twitter}
-                        <a
-                          href={member.social.twitter}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label="Twitter"
-                          class="icon-link"
-                        >
-                          <span class="icon"
-                            ><i class="fab fa-twitter"></i></span
-                          >
-                        </a>
-                      {/if}
-                      {#if member.social.instagram}
-                        <a
-                          href={member.social.instagram}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label="Instagram"
-                          class="icon-link"
-                        >
-                          <span class="icon"
-                            ><i class="fab fa-instagram"></i></span
-                          >
-                        </a>
-                      {/if}
-                      {#if member.social.linkedin}
-                        <a
-                          href={member.social.linkedin}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label="LinkedIn"
-                          class="icon-link"
-                        >
-                          <span class="icon"
-                            ><i class="fab fa-linkedin"></i></span
-                          >
-                        </a>
-                      {/if}
-                      {#if member.social.facebook}
-                        <a
-                          href={member.social.facebook}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label="Facebook"
-                          class="icon-link"
-                        >
-                          <span class="icon"
-                            ><i class="fab fa-facebook"></i></span
-                          >
-                        </a>
-                      {/if}
-                      {#if member.social.website}
-                        <a
-                          href={member.social.website}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label="Website"
-                          class="icon-link"
-                        >
-                          <span class="icon"><i class="fas fa-globe"></i></span>
-                        </a>
-                      {/if}
-                    </div>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <p class="title is-4">{member.name}</p>
-                  <p class="subtitle is-6">{member.position}</p>
+					<!-- Team Members Grid -->
+					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+						{#each teamByDesignation[designation] as member}
+							<div
+								class="group transform overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+							>
+								<!-- Member Image -->
+								<div class="relative overflow-hidden">
+									<img
+										src={member.image}
+										alt={member.name}
+										class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
+									/>
 
-                  <div class="content">
-                    <p>{member.bio}</p>
+									<!-- Social Overlay -->
+									<div
+										class="absolute inset-0 flex items-center justify-center bg-black/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+									>
+										<div class="flex space-x-4">
+											{#if member.social.twitter}
+												<a
+													href={member.social.twitter}
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label="Twitter"
+													class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-blue-500"
+												>
+													<i class="fab fa-twitter"></i>
+												</a>
+											{/if}
+											{#if member.social.instagram}
+												<a
+													href={member.social.instagram}
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label="Instagram"
+													class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-pink-500"
+												>
+													<i class="fab fa-instagram"></i>
+												</a>
+											{/if}
+											{#if member.social.linkedin}
+												<a
+													href={member.social.linkedin}
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label="LinkedIn"
+													class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-blue-600"
+												>
+													<i class="fab fa-linkedin"></i>
+												</a>
+											{/if}
+											{#if member.social.facebook}
+												<a
+													href={member.social.facebook}
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label="Facebook"
+													class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-blue-700"
+												>
+													<i class="fab fa-facebook"></i>
+												</a>
+											{/if}
+											{#if member.social.website}
+												<a
+													href={member.social.website}
+													target="_blank"
+													rel="noopener noreferrer"
+													aria-label="Website"
+													class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-gray-600"
+												>
+													<i class="fas fa-globe"></i>
+												</a>
+											{/if}
+										</div>
+									</div>
+								</div>
 
-                    <div class="tags mt-4">
-                      {#each member.expertise || [] as skill}
-                        <span class="tag is-primary is-light">{skill}</span>
-                      {/each}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/each}
-  </div>
+								<!-- Member Info -->
+								<div class="p-6">
+									<h3 class="mb-2 text-xl font-bold text-gray-900">{member.name}</h3>
+									<p class="mb-4 text-sm font-semibold text-blue-600">{member.position}</p>
+									<p class="mb-4 line-clamp-3 text-sm leading-relaxed text-gray-600">
+										{member.bio}
+									</p>
+
+									<!-- Expertise Tags -->
+									{#if member.expertise && member.expertise.length > 0}
+										<div class="flex flex-wrap gap-2">
+											{#each member.expertise as skill}
+												<span
+													class="rounded-full bg-gradient-to-r {getDesignationColor(
+														designation
+													)} px-3 py-1 text-xs font-medium text-white"
+												>
+													{skill}
+												</span>
+											{/each}
+										</div>
+									{/if}
+								</div>
+							</div>
+						{/each}
+					</div>
+				</div>
+			{/if}
+		{/each}
+	</div>
 </section>
 
 <!-- Join Our Team Section -->
-<section class="section has-background-primary-light">
-  <div class="container">
-    <div class="columns is-vcentered">
-      <div class="column is-7">
-        <h2 class="title is-2">Join Our Team</h2>
-        <p class="subtitle is-5">
-          We're always looking for passionate outdoor enthusiasts to join our
-          growing team of trek guides and specialists.
-        </p>
-        <p class="mb-5">
-          If you have experience in adventure tourism, mountaineering,
-          environmental conservation, or related fields, and a passion for
-          creating meaningful experiences for travelers, we'd love to hear from
-          you.
-        </p>
-        <a href="/contact" class="button is-primary is-medium">Get In Touch</a>
-      </div>
-      <div class="column is-5">
-        <figure class="image" style="">
-          <img
-            src="/images/team/team.jpeg"
-            alt="Join our team of adventure guides"
-            class="is-rounded"
-          />
-        </figure>
-      </div>
-    </div>
-  </div>
+<section class="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 py-20">
+	<!-- Background decoration -->
+	<div class="absolute inset-0 bg-black/10"></div>
+	<div class="absolute -top-32 -left-32 h-64 w-64 rounded-full bg-white/10"></div>
+	<div class="absolute -right-48 -bottom-48 h-96 w-96 rounded-full bg-white/10"></div>
+
+	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+			<div class="text-center lg:text-left">
+				<h2 class="mb-6 text-3xl font-bold text-white md:text-4xl">Join Our Team</h2>
+				<p class="mb-6 text-xl text-blue-100">
+					We're always looking for passionate outdoor enthusiasts to join our growing team of trek guides and
+					specialists.
+				</p>
+				<p class="mb-8 text-blue-200">
+					If you have experience in adventure tourism, mountaineering, environmental conservation, or related fields,
+					and a passion for creating meaningful experiences for travelers, we'd love to hear from you.
+				</p>
+				<a
+					href="/contact"
+					class="inline-flex transform items-center rounded-full bg-white px-8 py-4 text-lg font-bold text-blue-600 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-50 hover:shadow-2xl"
+				>
+					<span>Get In Touch</span>
+					<i class="fas fa-arrow-right ml-2"></i>
+				</a>
+			</div>
+			<div class="relative">
+				<!-- Team Photo Collage -->
+				<div class="grid grid-cols-2 gap-4">
+					<div class="space-y-4">
+						<div
+							class="transform overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105"
+						>
+							<img
+								src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=500&h=300"
+								alt="Team collaboration"
+								class="h-48 w-full object-cover"
+							/>
+						</div>
+						<div
+							class="transform overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105"
+						>
+							<img
+								src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&q=80&w=500&h=200"
+								alt="Adventure guides"
+								class="h-32 w-full object-cover"
+							/>
+						</div>
+					</div>
+					<div class="space-y-4 pt-8">
+						<div
+							class="transform overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105"
+						>
+							<img
+								src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=500&h=200"
+								alt="Team training"
+								class="h-32 w-full object-cover"
+							/>
+						</div>
+						<div
+							class="transform overflow-hidden rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105"
+						>
+							<img
+								src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&q=80&w=500&h=300"
+								alt="Team meeting"
+								class="h-48 w-full object-cover"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
-<style>
-  .team-category-section {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-  }
+<!-- Team Statistics/Info Cards (Optional Enhancement) -->
+<section class="bg-gradient-to-br from-yellow-50 to-orange-50 py-16">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mb-12 text-center">
+			<h2 class="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Why Choose Our Team</h2>
+			<div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500"></div>
+		</div>
 
-  .team-category-section:not(:first-child) {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-  }
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+			<div class="text-center">
+				<div
+					class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600"
+				>
+					<i class="fas fa-medal text-2xl text-white"></i>
+				</div>
+				<h3 class="mb-2 text-xl font-bold text-gray-900">Certified Experts</h3>
+				<p class="text-gray-600">All our guides are professionally certified and trained in mountain safety</p>
+			</div>
 
-  .team-category-section h2.title {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-  }
+			<div class="text-center">
+				<div
+					class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-blue-500"
+				>
+					<i class="fas fa-mountain text-2xl text-white"></i>
+				</div>
+				<h3 class="mb-2 text-xl font-bold text-gray-900">Local Knowledge</h3>
+				<p class="text-gray-600">Deep understanding of regional terrain, weather, and cultural insights</p>
+			</div>
 
-  .team-category-section h2.title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 25%;
-    width: 50%;
-    height: 3px;
-    background-color: var(--primary);
-  }
+			<div class="text-center">
+				<div
+					class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-yellow-500 to-orange-500"
+				>
+					<i class="fas fa-first-aid text-2xl text-white"></i>
+				</div>
+				<h3 class="mb-2 text-xl font-bold text-gray-900">Safety First</h3>
+				<p class="text-gray-600">Wilderness first aid certified with emergency response training</p>
+			</div>
 
-  .team-card {
-    height: 100%;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .team-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  }
-
-  .team-card .card-content {
-    padding: 1rem;
-  }
-
-  .team-card .card-content .title {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .team-card .card-content .subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .team-card .card-content .content {
-    font-size: 0.9rem;
-  }
-
-  .team-card .card-content .content p {
-    margin-bottom: 0.5rem;
-  }
-
-  .team-card .tags {
-    margin-top: 0.5rem !important;
-  }
-
-  .team-card .tag {
-    font-size: 0.7rem;
-    height: 1.5em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .team-image {
-    object-fit: cover;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    transition: all 0.5s ease;
-    width: 100%;
-    height: 220px; /* Fixed height for consistency */
-    object-position: center 40%; /* Position focus toward the face */
-  }
-
-  .card-image {
-    position: relative;
-    overflow: hidden;
-    background-color: #f5f5f5; /* Light background for image container */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .card-image figure.image {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: block;
-  }
-
-  .social-overlay {
-    position: absolute;
-    bottom: -50px;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    padding: 1rem 1rem 0.5rem;
-    transition: all 0.3s ease;
-    opacity: 0;
-    z-index: 2; /* Ensure it's above the image */
-  }
-
-  .team-card:hover .social-overlay {
-    bottom: 0;
-    opacity: 1;
-  }
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .icon-link {
-    color: white;
-    font-size: 1.2rem;
-    transition: all 0.2s ease;
-  }
-
-  .icon-link:hover {
-    transform: scale(1.2);
-    color: var(--primary);
-  }
-
-  .hero.is-medium .hero-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("/images/team/team-hero.jpg");
-    background-size: cover;
-    background-position: center;
-  }
-
-  .tag.is-primary.is-light {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-  }
-</style>
+			<div class="text-center">
+				<div
+					class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-600"
+				>
+					<i class="fas fa-heart text-2xl text-white"></i>
+				</div>
+				<h3 class="mb-2 text-xl font-bold text-gray-900">Passionate</h3>
+				<p class="text-gray-600">Genuine love for the outdoors and sharing adventures with others</p>
+			</div>
+		</div>
+	</div>
+</section>

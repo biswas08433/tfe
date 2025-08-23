@@ -1,580 +1,412 @@
-<script>
-  import { page } from "$app/stores";
-  import { treks, getRelatedTreks } from "$lib/stores";
-  import { onMount } from "svelte";
+<script lang="ts">
+	import { page } from '$app/state';
+	import type { Trek } from '$lib/stores';
+	import { treks, getRelatedTreks, Season } from '$lib/stores';
 
-  // Trek data from store
-  let allTreks = [];
-  let trek = null;
-  let relatedTreksList = [];
-
-  // Function to toggle key details visibility
-  function toggleKeyDetails() {
-    if (trek) {
-      treks.update((trekList) => {
-        return trekList.map((t) => {
-          if (t.id === trek.id) {
-            return { ...t, showKeyDetails: !t.showKeyDetails };
-          }
-          return t;
-        });
-      });
-    }
-  }
-
-  // Get trek ID from URL
-  $: trekId = parseInt($page.params.trekId);
-
-  // Subscribe to the treks store and get the current trek and related treks
-  onMount(() => {
-    const unsubscribe = treks.subscribe((trekList) => {
-      allTreks = trekList;
-      trek = allTreks.find((t) => t.id === trekId) || null;
-
-      if (trek) {
-        relatedTreksList = getRelatedTreks(trekId, trek.category, allTreks, 2);
-      } else {
-        relatedTreksList = [];
-      }
-    });
-
-    // Unsubscribe when component is destroyed
-    return unsubscribe;
-  });
-
-  // Removed duplicated reactive statement to avoid unnecessary updates.
+	let trekId = parseInt(page.params.trekId);
+	let trek: Trek | null = treks.find((t) => t.id === trekId) || null;
+	let relatedTreksList: Trek[] = getRelatedTreks(trekId, trek?.bestSeason || Season.ALL, treks);
 </script>
 
 <svelte:head>
-  <title>{trek ? `${trek.title} | TFE` : "Trek Not Found | TFE"}</title>
+	<title>{trek ? `${trek.title} | TravelTrek` : 'Trek Not Found | TravelTrek'}</title>
 </svelte:head>
 
 {#if trek}
-  <!-- Hero Section -->
-  <section class="hero is-info is-medium">
-    <div
-      class="hero-body"
-      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{trek.image}'); background-size: cover; background-position: center;"
-    >
-      <div class="container">
-        <h1 class="title is-1 has-text-white">{trek.title}</h1>
-        <h2 class="subtitle is-3">
-          <span class="tag is-primary is-medium mr-2"
-            >Best Season: {trek.bestSeason}</span
-          >
-          <span class="tag is-white is-medium mr-2">{trek.duration}</span>
-          <span class="tag is-success is-medium">{trek.distance}</span>
-        </h2>
-      </div>
-    </div>
-  </section>
+	<!-- Hero Section -->
+	<section
+		class="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 py-32"
+	>
+		<!-- Background Image with Overlay -->
+		<div class="absolute inset-0 z-0 bg-black/60"></div>
+		<div
+			class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+			style="background-image: url('{trek.image}')"
+		></div>
 
-  <section class="section">
-    <div class="container">
-      <div class="columns">
-        <!-- Main Content -->
-        <div class="column is-8">
-          <div class="content is-large">
-            <p>{trek.longDescription || trek.description}</p>
+		<!-- Content -->
+		<div class="relative z-10 mx-auto max-w-7xl px-4 text-center text-white sm:px-6 lg:px-8">
+			<h1 class="mb-6 text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
+				{trek.title}
+			</h1>
+			<div class="mb-8 flex flex-wrap justify-center gap-3">
+				<span
+					class="rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg"
+				>
+					Best Season: {trek.bestSeason}
+				</span>
+				<span class="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm">
+					{trek.duration}
+				</span>
+				<span
+					class="rounded-full bg-gradient-to-r from-green-400 to-green-600 px-4 py-2 text-sm font-semibold text-white shadow-lg"
+				>
+					{trek.distance}
+				</span>
+			</div>
+		</div>
 
-            <h3 class="title is-4 mt-6">Trek Highlights</h3>
-            <ul>
-              {#if trek.highlights}
-                {#each trek.highlights as highlight}
-                  <li>{highlight}</li>
-                {/each}
-              {:else}
-                <li>Spectacular mountain views</li>
-                <li>Cultural immersion</li>
-                <li>Challenging yet rewarding terrain</li>
-              {/if}
-            </ul>
+		<!-- Scroll indicator -->
+		<div class="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce text-white">
+			<i class="fas fa-chevron-down text-2xl"></i>
+		</div>
+	</section>
 
-            {#if trek.itinerary}
-              <h3 class="title is-4 mt-6">Detailed Itinerary</h3>
-              <div class="timeline">
-                {#each trek.itinerary as day}
-                  <div class="timeline-item">
-                    <div class="timeline-marker is-primary"></div>
-                    <div class="timeline-content">
-                      <p class="heading">Day {day.day}</p>
-                      <p class="title is-5">{day.title}</p>
+	<!-- Main Content Section -->
+	<section class="bg-gradient-to-br from-gray-50 to-blue-50 py-16">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
+				<!-- Main Content -->
+				<div class="lg:col-span-2">
+					<!-- Description -->
+					<div class="mb-12 rounded-2xl bg-white p-8 shadow-lg">
+						<h2 class="mb-6 text-3xl font-bold text-gray-900">About This Trek</h2>
+						<div class="prose prose-lg max-w-none text-gray-600">
+							<p class="mb-6 text-lg leading-relaxed">
+								{trek.longDescription || trek.description}
+							</p>
+						</div>
+					</div>
 
-                      <div class="content">
-                        <p>{day.description}</p>
+					<!-- Trek Highlights -->
+					<div class="mb-12 rounded-2xl bg-white p-8 shadow-lg">
+						<h3 class="mb-6 text-2xl font-bold text-gray-900">
+							<i class="fas fa-star mr-2 text-yellow-500"></i>Trek Highlights
+						</h3>
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+							{#if trek.highlights}
+								{#each trek.highlights as highlight}
+									<div class="flex items-start">
+										<div
+											class="mt-1 mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600"
+										>
+											<i class="fas fa-check text-xs text-white"></i>
+										</div>
+										<p class="text-gray-700">{highlight}</p>
+									</div>
+								{/each}
+							{:else}
+								<div class="col-span-2 flex items-start">
+									<div
+										class="mt-1 mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600"
+									>
+										<i class="fas fa-check text-xs text-white"></i>
+									</div>
+									<p class="text-gray-700">
+										Spectacular mountain views, cultural immersion, and challenging yet rewarding terrain
+									</p>
+								</div>
+							{/if}
+						</div>
+					</div>
 
-                        <div class="tags is-flex is-flex-wrap-wrap mb-2">
-                          {#if day.duration}
-                            <span class="tag is-light is-medium mr-2 mb-2">
-                              <span class="icon"
-                                ><i class="fas fa-clock"></i></span
-                              >
-                              <span>{day.duration}</span>
-                            </span>
-                          {/if}
-                          {#if day.distance}
-                            <span class="tag is-light is-medium mr-2 mb-2">
-                              <span class="icon"
-                                ><i class="fas fa-route"></i></span
-                              >
-                              <span>{day.distance}</span>
-                            </span>
-                          {/if}
-                          {#if day.elevation}
-                            <span class="tag is-light is-medium mr-2 mb-2">
-                              <span class="icon"
-                                ><i class="fas fa-mountain"></i></span
-                              >
-                              <span>{day.elevation}</span>
-                            </span>
-                          {/if}
-                        </div>
+					<!-- Detailed Itinerary -->
+					{#if trek.itinerary}
+						<div class="mb-12 rounded-2xl bg-white p-8 shadow-lg">
+							<h3 class="mb-8 text-2xl font-bold text-gray-900">
+								<i class="fas fa-route mr-2 text-blue-600"></i>Detailed Itinerary
+							</h3>
+							<div class="space-y-8">
+								{#each trek.itinerary as day, index}
+									<div class="group relative">
+										<!-- Timeline line (except for last item) -->
+										{#if index < trek.itinerary.length - 1}
+											<div
+												class="absolute top-12 left-6 h-full w-0.5 bg-gradient-to-b from-blue-300 to-purple-300"
+											></div>
+										{/if}
 
-                        <!-- Location Path -->
-                        {#if day.locations}
-                          <div class="location-path mt-3 mb-4">
-                            {#each day.locations as location, i}
-                              <span
-                                class="location-badge"
-                                style="background-color: {location.color}"
-                              >
-                                <span class="icon"
-                                  ><i class={location.icon}></i></span
-                                >
-                                {location.name}
-                              </span>
-                              {#if i < day.locations.length - 1}
-                                <span class="location-connector">
-                                  <i class="fas fa-chevron-right"></i>
-                                </span>
-                              {/if}
-                            {/each}
-                          </div>
-                        {/if}
+										<!-- Timeline marker -->
+										<div
+											class="absolute top-4 left-4 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg"
+										>
+											<div class="h-2 w-2 rounded-full bg-white"></div>
+										</div>
 
-                        <div class="columns mt-3">
-                          {#if day.accommodation}
-                            <div class="column is-6">
-                              <p>
-                                <span class="icon has-text-primary"
-                                  ><i class="fas fa-bed"></i></span
-                                >
-                                <strong>Accommodation:</strong>
-                                {day.accommodation}
-                              </p>
-                            </div>
-                          {/if}
+										<!-- Content -->
+										<div
+											class="ml-16 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 p-6 transition-all duration-300 group-hover:shadow-md"
+										>
+											<div class="mb-3 flex items-center gap-3">
+												<span
+													class="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-sm font-bold text-white"
+												>
+													Day {day.day}
+												</span>
+											</div>
 
-                          {#if day.meals}
-                            <div class="column is-6">
-                              <p>
-                                <span class="icon has-text-primary"
-                                  ><i class="fas fa-utensils"></i></span
-                                >
-                                <strong>Meals:</strong>
-                                {day.meals}
-                              </p>
-                            </div>
-                          {/if}
-                        </div>
+											<h4 class="mb-4 text-xl font-bold text-gray-900">{day.title}</h4>
+											<p class="mb-4 text-gray-700">{day.description}</p>
 
-                        {#if day.highlights}
-                          <div class="notification is-primary is-light mt-3">
-                            <p>
-                              <span class="icon"
-                                ><i class="fas fa-star"></i></span
-                              >
-                              <strong>Day Highlights:</strong>
-                              {day.highlights}
-                            </p>
-                          </div>
-                        {/if}
-                      </div>
-                    </div>
-                  </div>
-                {/each}
-              </div>
-            {/if}
-          </div>
+											<!-- Day Stats -->
+											<div class="mb-4 flex flex-wrap gap-2">
+												{#if day.duration}
+													<span
+														class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800"
+													>
+														<i class="fas fa-clock mr-2"></i>{day.duration}
+													</span>
+												{/if}
+												{#if day.distance}
+													<span
+														class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm text-green-800"
+													>
+														<i class="fas fa-route mr-2"></i>{day.distance}
+													</span>
+												{/if}
+												{#if day.elevation}
+													<span
+														class="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-800"
+													>
+														<i class="fas fa-mountain mr-2"></i>{day.elevation}
+													</span>
+												{/if}
+											</div>
 
-          <!-- Call to Action -->
-          <div
-            class="box has-background-primary-light has-text-centered p-5 mt-6"
-          >
-            <h3 class="title is-4">Ready to Experience {trek.title}?</h3>
-            <p class="mb-4">Contact our expert guides to plan your adventure</p>
-            <a href="/contact" class="button is-primary is-large"
-              >Book This Trek</a
-            >
-          </div>
-        </div>
+											<!-- Location Path -->
+											{#if day.locations}
+												<div class="mb-4 flex flex-wrap items-center gap-2">
+													{#each day.locations as location, i}
+														<span
+															class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-white shadow-sm"
+															style="background-color: {location.color}"
+														>
+															<i class="{location.icon} mr-2"></i>
+															{location.name}
+														</span>
+														{#if i < day.locations.length - 1}
+															<i class="fas fa-chevron-right text-gray-400"></i>
+														{/if}
+													{/each}
+												</div>
+											{/if}
 
-        <!-- Sidebar -->
-        <div class="column is-4">
-          <div class="card">
-            <div class="card-content">
-              <h3 class="title is-4">Trek Details</h3>
+											<!-- Accommodation & Meals -->
+											<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+												{#if day.accommodation}
+													<div class="flex items-center text-gray-600">
+														<i class="fas fa-bed mr-2 text-blue-600"></i>
+														<span><strong>Stay:</strong> {day.accommodation}</span>
+													</div>
+												{/if}
+												{#if day.meals}
+													<div class="flex items-center text-gray-600">
+														<i class="fas fa-utensils mr-2 text-green-600"></i>
+														<span><strong>Meals:</strong> {day.meals}</span>
+													</div>
+												{/if}
+											</div>
 
-              <table class="table is-fullwidth">
-                <tbody>
-                  <tr>
-                    <td><strong>Duration</strong></td>
-                    <td>{trek.duration}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Distance</strong></td>
-                    <td>{trek.distance}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Maximum Altitude</strong></td>
-                    <td>{trek.altitude}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Location</strong></td>
-                    <td>{trek.location}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Best Season</strong></td>
-                    <td
-                      ><span class="tag is-primary">{trek.bestSeason}</span></td
-                    >
-                  </tr>
-                  <tr>
-                    <td><strong>Season Details</strong></td>
-                    <td>{trek.season || "March-May, September-November"}</td>
-                  </tr>
-                </tbody>
-              </table>
+											<!-- Day Highlights -->
+											{#if day.highlights}
+												<div
+													class="mt-4 rounded-lg border-l-4 border-yellow-400 bg-gradient-to-r from-yellow-50 to-orange-50 p-4"
+												>
+													<div class="flex items-start">
+														<i class="fas fa-star mt-1 mr-2 text-yellow-600"></i>
+														<div>
+															<p class="font-semibold text-yellow-800">Day Highlights:</p>
+															<p class="text-yellow-700">{day.highlights}</p>
+														</div>
+													</div>
+												</div>
+											{/if}
+										</div>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
 
-              <div class="has-text-centered mt-5">
-                <a href="/contact" class="button is-primary is-fullwidth"
-                  >Enquire Now</a
-                >
-              </div>
-            </div>
-          </div>
+					<!-- Call to Action -->
+					<div
+						class="rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 p-8 text-center text-white shadow-xl"
+					>
+						<h3 class="mb-4 text-2xl font-bold">Ready to Experience {trek.title}?</h3>
+						<p class="mb-6 text-blue-100">Contact our expert guides to plan your adventure</p>
+						<a
+							href="/contact"
+							class="inline-flex transform items-center rounded-full bg-white px-8 py-4 text-lg font-bold text-blue-600 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-50"
+						>
+							<span>Book This Trek</span>
+							<i class="fas fa-arrow-right ml-2"></i>
+						</a>
+					</div>
+				</div>
 
-          <!-- Key Details Section -->
-          {#if trek && trek.showKeyDetails}
-            <div class="card mt-5">
-              <div class="card-header">
-                <div class="card-header-title">
-                  <h3 class="title is-4 mb-0">Key Details</h3>
-                </div>
-              </div>
-              <div class="card-content">
-                {#if trek.dates && trek.dates.length > 0}
-                  <div class="upcoming-dates mb-4">
-                    <h4 class="title is-6 mb-2">
-                      <span class="icon-text"
-                        ><span class="icon"
-                          ><i class="fas fa-calendar-alt"></i></span
-                        ><span>Date:</span></span
-                      >
-                    </h4>
-                    {#if trek.dates.length >= 2}
-                      <div class="date-range">
-                        <span class="tag is-primary is-medium mb-3"
-                          >{trek.dates[0]}</span
-                        >
-                        -
-                        <span class="tag is-primary is-medium mb-3"
-                          >{trek.dates[trek.dates.length - 1]}</span
-                        >
-                      </div>
-                    {:else}
-                      <div class="date-range tag is-primary is-medium mb-3">
-                        <span>{trek.dates[0]}</span>
-                      </div>
-                    {/if}
-                    <!-- <div class="dates-list mt-2">
-                    <h6 class="is-size-7 has-text-grey mb-2">
-                      Individual trek start dates:
-                    </h6>
-                    {#each trek.dates as date}
-                      <div class="tag is-light mb-2 mr-2">{date}</div>
-                    {/each}
-                  </div> -->
-                  </div>
-                {:else}
-                  <div class="upcoming-dates mb-4">
-                    <h4 class="title is-6 mb-2">
-                      <span class="icon-text"
-                        ><span class="icon"
-                          ><i class="fas fa-calendar-alt"></i></span
-                        ><span>Season:</span></span
-                      >
-                    </h4>
-                    <div class="date-range tag is-info is-light is-medium mb-3">
-                      <span
-                        >{trek.season || "Contact us for current dates"}</span
-                      >
-                    </div>
-                  </div>
-                {/if}
+				<!-- Sidebar -->
+				<div class="lg:col-span-1">
+					<!-- Trek Details Card -->
+					<div class="sticky top-8 mb-8 rounded-2xl bg-white p-6 shadow-lg">
+						<h3 class="mb-6 text-xl font-bold text-gray-900">
+							<i class="fas fa-info-circle mr-2 text-blue-600"></i>Trek Details
+						</h3>
 
-                <div class="financial-details">
-                  {#if trek.budget}
-                    <div class="detail-item">
-                      <span class="icon-text">
-                        <span class="icon has-text-success"
-                          ><i class="fas fa-money-bill-wave"></i></span
-                        >
-                        <span><strong>Budget:</strong> {trek.budget}</span>
-                      </span>
-                    </div>
-                  {:else}
-                    <div class="detail-item">
-                      <span class="icon-text">
-                        <span class="icon has-text-success"
-                          ><i class="fas fa-money-bill-wave"></i></span
-                        >
-                        <span><strong>Budget:</strong> Contact for pricing</span
-                        >
-                      </span>
-                    </div>
-                  {/if}
+						<div class="space-y-4">
+							<div class="flex items-center justify-between border-b border-gray-100 pb-3">
+								<span class="font-medium text-gray-600">Duration</span>
+								<span class="font-bold text-gray-900">{trek.duration}</span>
+							</div>
+							<div class="flex items-center justify-between border-b border-gray-100 pb-3">
+								<span class="font-medium text-gray-600">Distance</span>
+								<span class="font-bold text-gray-900">{trek.distance}</span>
+							</div>
+							<div class="flex items-center justify-between border-b border-gray-100 pb-3">
+								<span class="font-medium text-gray-600">Max Altitude</span>
+								<span class="font-bold text-gray-900">{trek.altitude}</span>
+							</div>
+							<div class="flex items-center justify-between border-b border-gray-100 pb-3">
+								<span class="font-medium text-gray-600">Location</span>
+								<span class="font-bold text-gray-900">{trek.location}</span>
+							</div>
+							<div class="flex items-center justify-between border-b border-gray-100 pb-3">
+								<span class="font-medium text-gray-600">Best Season</span>
+								<span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-bold text-blue-800">{trek.bestSeason}</span
+								>
+							</div>
+						</div>
 
-                  {#if trek.advancePayment}
-                    <div class="detail-item mt-2">
-                      <span class="icon-text">
-                        <span class="icon has-text-info"
-                          ><i class="fas fa-credit-card"></i></span
-                        >
-                        <span
-                          ><strong>Advance Payment:</strong>
-                          {trek.advancePayment}</span
-                        >
-                      </span>
-                    </div>
-                  {:else}
-                    <div class="detail-item mt-2">
-                      <span class="icon-text">
-                        <span class="icon has-text-info"
-                          ><i class="fas fa-credit-card"></i></span
-                        >
-                        <span
-                          ><strong>Advance Payment:</strong> Contact for details</span
-                        >
-                      </span>
-                    </div>
-                  {/if}
+						<div class="mt-6">
+							<a
+								href="/contact"
+								class="block w-full transform rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-center font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-purple-700"
+							>
+								Enquire Now
+							</a>
+						</div>
+					</div>
 
-                  {#if trek.groupSize}
-                    <div class="detail-item mt-2">
-                      <span class="icon-text">
-                        <span class="icon has-text-primary"
-                          ><i class="fas fa-users"></i></span
-                        >
-                        <span
-                          ><strong>Group Size:</strong> {trek.groupSize}</span
-                        >
-                      </span>
-                    </div>
-                  {:else}
-                    <div class="detail-item mt-2">
-                      <span class="icon-text">
-                        <span class="icon has-text-primary"
-                          ><i class="fas fa-users"></i></span
-                        >
-                        <span><strong>Group Size:</strong> Varies by trek</span>
-                      </span>
-                    </div>
-                  {/if}
-                </div>
+					<!-- Key Details Card (if available) -->
+					{#if trek && trek.showKeyDetails}
+						<div class="mb-8 rounded-2xl bg-white p-6 shadow-lg">
+							<h3 class="mb-6 text-xl font-bold text-gray-900">
+								<i class="fas fa-key mr-2 text-green-600"></i>Key Details
+							</h3>
 
-                <div class="notification is-light is-warning mt-4 is-size-7">
-                  <span class="icon-text">
-                    <span class="icon"><i class="fas fa-info-circle"></i></span>
-                    <span
-                      >Prices may vary based on group size and specific
-                      requirements. Contact us for custom pricing.</span
-                    >
-                  </span>
-                </div>
-              </div>
-            </div>
-          {/if}
+							<!-- Dates -->
+							{#if trek.dates && trek.dates.length > 0}
+								<div class="mb-6">
+									<h4 class="mb-3 flex items-center text-sm font-semibold text-gray-700">
+										<i class="fas fa-calendar-alt mr-2 text-blue-500"></i>Trek Dates
+									</h4>
+									{#if trek.dates.length >= 2}
+										<div class="flex items-center justify-center gap-2">
+											<span class="rounded-lg bg-blue-100 px-3 py-2 text-sm font-bold text-blue-800"
+												>{trek.dates[0]}</span
+											>
+											<span class="text-gray-400">to</span>
+											<span class="rounded-lg bg-blue-100 px-3 py-2 text-sm font-bold text-blue-800"
+												>{trek.dates[trek.dates.length - 1]}</span
+											>
+										</div>
+									{:else}
+										<span class="rounded-lg bg-blue-100 px-4 py-2 text-sm font-bold text-blue-800">{trek.dates[0]}</span
+										>
+									{/if}
+								</div>
+							{/if}
 
-          <!-- Related Treks -->
-          <div class="box mt-5">
-            <h3 class="title is-5">You Might Also Like</h3>
-            <div class="related-treks">
-              {#if relatedTreksList.length > 0}
-                {#each relatedTreksList as relatedTrek}
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-64x64">
-                        <img src={relatedTrek.image} alt={relatedTrek.title} />
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <p class="title is-6">{relatedTrek.title}</p>
-                      <p class="subtitle is-7">
-                        {relatedTrek.duration} | {relatedTrek.distance}
-                      </p>
-                      <a
-                        href={`/treks/${relatedTrek.id}`}
-                        target="_blank"
-                        class="is-size-7">View Trek</a
-                      >
-                    </div>
-                  </div>
-                {/each}
-              {:else}
-                <p>No related treks found in this season.</p>
-              {/if}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+							<!-- Financial Details -->
+							<div class="space-y-4">
+								{#if trek.budget}
+									<div class="flex items-center">
+										<i class="fas fa-money-bill-wave mr-3 text-green-500"></i>
+										<div>
+											<p class="text-sm text-gray-600">Budget</p>
+											<p class="font-bold text-gray-900">{trek.budget}</p>
+										</div>
+									</div>
+								{/if}
+
+								{#if trek.advancePayment}
+									<div class="flex items-center">
+										<i class="fas fa-credit-card mr-3 text-blue-500"></i>
+										<div>
+											<p class="text-sm text-gray-600">Advance Payment</p>
+											<p class="font-bold text-gray-900">{trek.advancePayment}</p>
+										</div>
+									</div>
+								{/if}
+
+								{#if trek.groupSize}
+									<div class="flex items-center">
+										<i class="fas fa-users mr-3 text-purple-500"></i>
+										<div>
+											<p class="text-sm text-gray-600">Group Size</p>
+											<p class="font-bold text-gray-900">{trek.groupSize}</p>
+										</div>
+									</div>
+								{/if}
+							</div>
+
+							<div class="mt-6 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+								<div class="flex items-start">
+									<i class="fas fa-info-circle mt-0.5 mr-2 text-yellow-600"></i>
+									<p class="text-sm text-yellow-800">
+										Prices may vary based on group size and specific requirements. Contact us for custom pricing.
+									</p>
+								</div>
+							</div>
+						</div>
+					{/if}
+
+					<!-- Related Treks -->
+					{#if relatedTreksList.length > 0}
+						<div class="rounded-2xl bg-white p-6 shadow-lg">
+							<h3 class="mb-6 text-xl font-bold text-gray-900">
+								<i class="fas fa-hiking mr-2 text-orange-500"></i>You Might Also Like
+							</h3>
+							<div class="space-y-4">
+								{#each relatedTreksList as relatedTrek}
+									<div
+										class="group rounded-lg border border-gray-100 p-4 transition-all duration-300 hover:border-blue-200 hover:shadow-md"
+									>
+										<div class="flex items-center space-x-4">
+											<div class="h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+												<img
+													src={relatedTrek.image}
+													alt={relatedTrek.title}
+													class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+												/>
+											</div>
+											<div class="flex-1">
+												<h4 class="font-semibold text-gray-900 group-hover:text-blue-600">{relatedTrek.title}</h4>
+												<p class="text-sm text-gray-500">{relatedTrek.duration} | {relatedTrek.distance}</p>
+												<a
+													href={`/treks/${relatedTrek.id}`}
+													class="mt-1 text-sm font-medium text-blue-600 hover:text-blue-800"
+												>
+													View Trek →
+												</a>
+											</div>
+										</div>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</section>
 {:else}
-  <section class="section">
-    <div class="container">
-      <div class="notification is-danger has-text-centered">
-        <h2 class="title is-3">Trek Not Found</h2>
-        <p>
-          The trek you are looking for does not exist or the trek ID is invalid.
-        </p>
-        <a href="/treks" class="button is-primary mt-4">Back to Treks</a>
-      </div>
-    </div>
-  </section>
+	<!-- Trek Not Found -->
+	<section class="bg-gradient-to-br from-gray-50 to-blue-50 py-32">
+		<div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+			<div class="rounded-2xl bg-white p-12 shadow-xl">
+				<div class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-red-100">
+					<i class="fas fa-exclamation-triangle text-4xl text-red-500"></i>
+				</div>
+				<h2 class="mb-4 text-3xl font-bold text-gray-900">Trek Not Found</h2>
+				<p class="mb-8 text-lg text-gray-600">The trek you are looking for does not exist or the trek ID is invalid.</p>
+				<a
+					href="/treks"
+					class="inline-flex transform items-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-purple-700"
+				>
+					<i class="fas fa-arrow-left mr-2"></i>
+					<span>Back to Treks</span>
+				</a>
+			</div>
+		</div>
+	</section>
 {/if}
-
-<style>
-  .content {
-    font-size: small;
-  }
-
-  .timeline-marker {
-    display: inline-block;
-    position: absolute;
-    background: #3e8ed0;
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    left: -36px;
-    top: 6px;
-  }
-
-  .timeline-item {
-    padding-bottom: 2em;
-    position: relative;
-    padding-left: 20px;
-  }
-
-  .timeline-item:before {
-    content: "";
-    background-color: #dbdbdb;
-    display: block;
-    width: 2px;
-    height: 100%;
-    position: absolute;
-    left: -30px;
-    top: 0;
-  }
-
-  .timeline-item:last-child:before {
-    height: 50%;
-  }
-
-  .timeline {
-    margin-left: 30px;
-  }
-
-  .media {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f5f5f5;
-  }
-
-  .media:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-
-  /* Itinerary styling */
-  .location-path {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .location-badge {
-    padding: 5px 10px;
-    border-radius: 16px;
-    color: white;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
-  }
-
-  .location-connector {
-    color: #999;
-    margin: 0 5px;
-  }
-
-  .timeline-content .content {
-    padding-bottom: 10px;
-  }
-
-  .timeline-marker.is-primary {
-    background-color: #3e8ed0;
-  }
-
-  /* Make tags consistent size */
-  .tag.is-medium {
-    height: auto;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    white-space: normal;
-    height: auto;
-  }
-
-  /* Key Details Section Styling */
-  .detail-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-  }
-
-  .dates-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-
-  .tag.is-info.is-light {
-    font-size: 0.85rem;
-    padding: 0.5em 0.75em;
-  }
-
-  .financial-details {
-    padding: 10px 0;
-    border-top: 1px solid #f0f0f0;
-    margin-top: 5px;
-  }
-
-  .date-range.tag.is-medium {
-    display: block;
-    width: fit-content;
-    padding: 0.5em 1em;
-    font-weight: 500;
-  }
-
-  .card-header-title {
-    padding: 1rem 1.5rem;
-    width: 100%;
-  }
-
-  .card-header-title h3.title {
-    margin-bottom: 0;
-  }
-</style>

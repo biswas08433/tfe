@@ -1,75 +1,115 @@
-<script>
-  import "bulma/css/bulma.min.css";
+<script lang="ts">
+	import '../app.css';
 
-  // Toggle burger menu on mobile
-  let navbarActive = false;
-  function toggleNavbar() {
-    navbarActive = !navbarActive;
-  }
+	let { children } = $props();
+
+	// Toggle burger menu on mobile
+	let navbarActive: boolean = $state(false);
+
+	function toggleNavbar() {
+		navbarActive = !navbarActive;
+	}
 </script>
 
-<!-- Import custom CSS with variable overrides -->
-<svelte:head>
-  <link rel="stylesheet" href="/css/custom-bulma.css" />
-</svelte:head>
+<!-- Navigation -->
+<nav class="bg-slate-800 shadow-lg" aria-label="main navigation">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="flex h-16 items-center justify-between">
+			<!-- Brand Section -->
+			<div class="flex items-center space-x-4">
+				<a href="/" class="flex items-center space-x-2 text-white transition-colors hover:text-indigo-100">
+					<img src="/logo.png" alt="The Flyin' Eagle Logo" class="h-12 w-auto" />
+					<span class="hidden text-xl font-bold sm:block">The Flyin' Eagle</span>
+				</a>
+			</div>
 
-<nav class="navbar is-primary" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <img
-        src="/logo.png"
-        alt="The Flyin' Eagle Logo"
-        style="max-height: 3rem;"
-      />
-    </a>
-    <a class="navbar-item" href="/">
-      <strong>The Flyin' Eagle</strong>
-    </a>
+			<!-- Desktop Navigation -->
+			<div class="hidden items-center space-x-8 md:flex">
+				<a
+					href="/treks"
+					class="rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Treks
+				</a>
+				<a
+					href="/experiences"
+					class="rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Experiences
+				</a>
+				<a
+					href="/team"
+					class="rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Our Team
+				</a>
+				<a
+					href="/contact"
+					class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition-colors hover:bg-slate-50"
+				>
+					Contact Us
+				</a>
+			</div>
 
-    <button
-      class="navbar-burger"
-      aria-label="menu"
-      aria-expanded={navbarActive}
-      on:click={toggleNavbar}
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </button>
-  </div>
+			<!-- Mobile menu button -->
+			<div class="md:hidden">
+				<button
+					onclick={toggleNavbar}
+					class="rounded-md p-2 text-white transition-colors hover:bg-blue-500 hover:text-blue-100"
+					aria-label="menu"
+					aria-expanded={navbarActive}
+				>
+					<i class="fas fa-bars h-6 w-6"></i>
+				</button>
+			</div>
+		</div>
 
-  <div id="navbarBasic" class="navbar-menu" class:is-active={navbarActive}>
-    <div class="navbar-start">
-      <a class="navbar-item" href="/treks"> Treks </a>
-
-      <a class="navbar-item" href="/experiences"> Experiences </a>
-
-      <a class="navbar-item" href="/team"> Our Team </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-light" href="/contact">
-            <strong>Contact Us</strong>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+		<!-- Mobile Navigation Menu -->
+		<div class="md:hidden {navbarActive ? 'block' : 'hidden'}">
+			<div class="mt-2 space-y-1 px-2 pt-2 pb-3">
+				<a
+					href="/treks"
+					class="block rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Treks
+				</a>
+				<a
+					href="/experiences"
+					class="block rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Experiences
+				</a>
+				<a
+					href="/team"
+					class="block rounded-md px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-100 hover:text-slate-800"
+				>
+					Our Team
+				</a>
+				<a
+					href="/contact"
+					class="block rounded-md bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm transition-colors hover:bg-slate-50"
+				>
+					Contact Us
+				</a>
+			</div>
+		</div>
+	</div>
 </nav>
 
-<section class="section">
-  <div class="container">
-    <slot />
-  </div>
-</section>
+<!-- Main Content -->
+<main class="min-h-screen bg-gray-50">
+	<div class="mx-auto max-w-full px-4 py-8 sm:p-0 lg:p-0">
+		{@render children()}
+	</div>
+</main>
 
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      <strong>The Flying Eagle</strong>. Copyright &copy; 2023. All rights
-      reserved.
-    </p>
-  </div>
+<!-- Footer -->
+<footer class="bg-slate-800 text-white">
+	<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+		<div class="text-center">
+			<p class="text-gray-300">
+				<span class="font-semibold">The Flying Eagle</span>. Copyright &copy; 2023. All rights reserved.
+			</p>
+		</div>
+	</div>
 </footer>
